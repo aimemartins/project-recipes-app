@@ -10,13 +10,13 @@ describe('Testing Footer component', () => {
     const footer = container.querySelector('footer');
     expect(footer).toBeInTheDocument();
     const imgs = screen.getAllByRole('img');
-    expect(imgs).toHaveLength(2);
-    expect(imgs[0]).toHaveAttribute('src', 'mealIcon.svg');
-    expect(imgs[0]).toHaveAttribute('alt', 'meal icon');
-    expect(imgs[0]).toHaveAttribute('data-testid', 'meals-bottom-btn');
-    expect(imgs[1]).toHaveAttribute('src', 'drinkIcon.svg');
-    expect(imgs[1]).toHaveAttribute('alt', 'drinks icon');
-    expect(imgs[1]).toHaveAttribute('data-testid', 'drinks-bottom-btn');
+    expect(imgs).toHaveLength(4);
+    expect(imgs[2]).toHaveAttribute('src', 'mealIcon.svg');
+    expect(imgs[2]).toHaveAttribute('alt', 'meal icon');
+    expect(imgs[2]).toHaveAttribute('data-testid', 'meals-bottom-btn');
+    expect(imgs[3]).toHaveAttribute('src', 'drinkIcon.svg');
+    expect(imgs[3]).toHaveAttribute('alt', 'drinks icon');
+    expect(imgs[3]).toHaveAttribute('data-testid', 'drinks-bottom-btn');
   });
   it('Testing if redirects to "/meals', () => {
     const { history } = renderWithRouter(<App />, '/meals');
