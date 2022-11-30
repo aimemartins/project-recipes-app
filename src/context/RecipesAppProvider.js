@@ -5,12 +5,6 @@ import RecipesAppContext from './RecipesAppContext';
 function RecipesAppProvider({ children }) {
   const [searchInput, setsearchInput] = useState(''); // estado da pesquisa de texto
   const [chosenRadio, setChosenRadio] = useState('');
-  const [page, setPage] = useState('Cocktails');
-  const [pageMeals, setpageMeals] = useState('Meals');
-  const [pageCocktails, setpageCocktails] = useState('Cocktails');
-  const [meals, setMeals] = useState([]);
-  const [cocktails, setCocktails] = useState([]);
-  const [calledAPI, setCalledAPI] = useState('');
   const [resultSearch, setResultSearch] = useState([]);
 
   const value = useMemo(() => ({
@@ -18,39 +12,15 @@ function RecipesAppProvider({ children }) {
     setsearchInput,
     chosenRadio,
     setChosenRadio,
-    page,
-    setPage,
-    pageMeals,
-    setpageMeals,
-    pageCocktails,
-    setpageCocktails,
-    meals,
-    setMeals,
-    cocktails,
-    setCocktails,
     resultSearch,
     setResultSearch,
-    calledAPI,
-    setCalledAPI,
   }), [
     searchInput,
     setsearchInput,
     chosenRadio,
     setChosenRadio,
-    page,
-    setPage,
-    pageMeals,
-    setpageMeals,
-    pageCocktails,
-    setpageCocktails,
-    meals,
-    setMeals,
-    cocktails,
-    setCocktails,
     resultSearch,
     setResultSearch,
-    calledAPI,
-    setCalledAPI,
   ]);
 
   return (
