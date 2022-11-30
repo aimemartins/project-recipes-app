@@ -31,8 +31,8 @@ describe('Testing Profile page', () => {
     const btnContent = ['Done Recipes/profile-done-btn', 'Favorite Recipes/profile-favorite-btn', 'Logout/profile-logout-btn'];
     renderWithRouter(<App />, '/profile');
     const btns = screen.getAllByRole('button');
-    expect(btns).toHaveLength(5);
-    btns.slice(0, 3).forEach((btn, index) => {
+    expect(btns).toHaveLength(6);
+    btns.slice(1, 4).forEach((btn, index) => {
       expect(btn).toHaveTextContent(btnContent[index].split('/')[0]);
       expect(btn).toHaveAttribute('data-testid', btnContent[index].split('/')[1]);
     });

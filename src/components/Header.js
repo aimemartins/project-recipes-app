@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProfileIcon from '../images/profileIcon.svg';
+import SearchIcon from '../images/searchIcon.svg';
 
 function Header({ title }) {
   const [search, setSearch] = useState(false);
@@ -35,7 +36,7 @@ function Header({ title }) {
 
   const btn = (
     <img
-      src="../images/searchIcon.svg"
+      src={ SearchIcon }
       alt="search-icon"
       data-testid="search-top-btn"
     />
@@ -48,7 +49,7 @@ function Header({ title }) {
         onClick={ () => clickProfile() }
       >
         <img
-          src="../src/images/profileIcon.svg"
+          src={ ProfileIcon }
           alt="profile-icon"
           data-testid="profile-top-btn"
         />
@@ -69,11 +70,6 @@ function Header({ title }) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      pathname: PropTypes.string,
-    }),
-  }).isRequired,
 };
 
 export default Header;
