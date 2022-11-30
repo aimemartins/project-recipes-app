@@ -4,8 +4,6 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
 
-const dataTest = 'data-testid';
-
 const localStorageMock = (() => {
   let store = { user: '{"email": "rodrigo@gmail.com"}' };
 
@@ -30,15 +28,14 @@ describe('Testing Profile page', () => {
     });
   });
   it('Testing if renders properly', () => {
+    const btnContent = ['Done Recipes/profile-done-btn', 'Favorite Recipes/profile-favorite-btn', 'Logout/profile-logout-btn'];
     renderWithRouter(<App />, '/profile');
     const btns = screen.getAllByRole('button');
     expect(btns).toHaveLength(5);
-    expect(btns[0]).toHaveTextContent('Done Recipes');
-    expect(btns[0]).toHaveAttribute(dataTest, 'profile-done-btn');
-    expect(btns[1]).toHaveTextContent('Favorite Recipes');
-    expect(btns[1]).toHaveAttribute(dataTest, 'profile-favorite-btn');
-    expect(btns[2]).toHaveTextContent('Logout');
-    expect(btns[2]).toHaveAttribute(dataTest, 'profile-logout-btn');
+    btns.slice(0, 3).forEach((btn, index) => {
+      expect(btn).toHaveTextContent(btnContent[index].split('/')[0]);
+      expect(btn).toHaveAttribute('data-testid', btnContent[index].split('/')[1]);
+    });
     const email = screen.getByTestId('profile-email');
     expect(email).toBeInTheDocument();
     expect(email).toHaveTextContent('rodrigo@gmail.com');
