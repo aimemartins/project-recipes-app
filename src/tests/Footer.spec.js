@@ -20,7 +20,6 @@ describe('Testing Footer component', () => {
   });
   it('Testing if redirects to "/meals', () => {
     const { history } = renderWithRouter(<App />, '/meals');
-    console.log(history);
     const mealBtn = screen.getByRole('button', { name: 'meal icon' });
     userEvent.click(mealBtn);
     const { pathname } = history.location;
