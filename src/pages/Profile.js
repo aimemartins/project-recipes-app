@@ -1,8 +1,7 @@
-import Header from '../components/Header';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
-
 
 function Profile() {
   const [email, setEmail] = useState('');
