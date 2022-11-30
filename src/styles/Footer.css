@@ -1,0 +1,22 @@
+footer {
+  align-items: center;
+  background: #41197f;
+  bottom: 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+  height: 52px;
+  justify-content: space-between;
+  position: fixed;
+  width: 100vw;
+}
+
+footer button img {
+  filter: invert(77%) sepia(43%) saturate(699%) hue-rotate(351deg)
+    brightness(97%) contrast(104%);
+}
+
+.buttons-footer {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
