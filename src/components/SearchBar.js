@@ -1,13 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesAppContext from '../context/RecipesAppContext';
-import {
-  theCocktailDBIngredient,
-  theCocktailDBName,
-  theCocktailDBFirstLet } from '../services/theCocktailDB';
-import {
-  theMealDBIngredient,
-  theMealDBName,
-  theMealDBFirstLet } from '../services/theMealDB';
+import fetchAPI from '../services/API';
 
 export default function SearchBar() {
   const
@@ -16,86 +10,24 @@ export default function SearchBar() {
       setsearchInput,
       chosenRadio,
       setChosenRadio,
-      setCalledAPI,
-      page,
-      resultSearch,
       setResultSearch,
-      calledAPI,
     } = useContext(RecipesAppContext);
 
-  // PESQUISA POR INGREDIENTE
-  const SearchByIngredient = async () => {
-    if (page === 'Meals') {
-      console.log('vc escolheu pesquisar por INGREDIENTE em COMIDA');
-      const meal = await theMealDBIngredient(searchInput);
-      setResultSearch(meal);
-    }
-    if (page === 'Cocktails') {
-      console.log('vc escolheu pesquisar por INGREDIENTE em BEBIDA');
-      const cocktail = await theCocktailDBIngredient(searchInput);
-      setResultSearch(cocktail);
-    }
-  };
-
-  // PESQUISA POR NOME
-  const SearchByName = async () => {
-    if (page === 'Meals') {
-      console.log('vc escolheu pesquisar por NOME em COMIDA');
-      const meal = await theMealDBName(searchInput);
-      setResultSearch(meal);
-    }
-    if (page === 'Cocktails') {
-      console.log('vc escolheu pesquisar por NOME em BEBIDA');
-      const cocktail = await theCocktailDBName(searchInput);
-      setResultSearch(cocktail);
-    }
-  };
-
-  // PESQUISA POR PRIMEIRA LETRA
-  const SearchByFirstLet = async () => {
-    if (page === 'Meals') {
-      console.log('vc escolheu pesquisar por LETRA em COMIDA');
-      const meal = await theMealDBFirstLet(searchInput);
-      setResultSearch(meal);
-    }
-    if (page === 'Cocktails') {
-      console.log('vc escolheu pesquisar por LETRA em BEBIDA');
-      const cocktail = await theCocktailDBFirstLet(searchInput);
-      setResultSearch(cocktail);
-    }
-  };
+  const history = useHistory();
 
   const handleClick = async () => {
-    if (chosenRadio === 'ingredient-search-radio') {
-      setCalledAPI(true);
-      const response = await SearchByIngredient();
-      return response;
+    const { pathname } = history.location;
+    console.log(pathname);
+    const url = pathname === '/meals' ? 'themealdb' : 'thecocktaildb';
+    if (chosenRadio === 'search.php?f=' && searchInput.length > 1) {
+      global.alert('Your search must have only 1 (one) character');
     }
-
-    if (chosenRadio === 'name-search-radio') {
-      setCalledAPI(true);
-      const response = await SearchByName();
-      return response;
-    }
-
-    if (chosenRadio === 'first-letter-search-radio') {
-      setCalledAPI(true);
-      const response = await SearchByFirstLet();
-      return response;
-    }
+    const response = await fetchAPI(url, chosenRadio, searchInput);
+    setResultSearch(response);
   };
-  console.log(resultSearch);
-  useEffect(() => {
-    handleClick();
-  }, [calledAPI]);
 
   return (
     <div className="SearchBar">
-      <p>
-        Está renderizando a página:
-        {' '}
-        {page}
-      </p>
       <div>
         <input
           type="text"
@@ -112,8 +44,8 @@ export default function SearchBar() {
             name="ingredient-search-radio"
             type="radio"
             id="ingredient-search-radio"
-            value="ingredient-search-radio"
-            checked={ chosenRadio === 'ingredient-search-radio' }
+            value="filter.php?i="
+            checked={ chosenRadio === 'filter.php?i=' }
             onChange={ ({ target }) => setChosenRadio(target.value) }
             data-testid="ingredient-search-radio"
           />
@@ -125,8 +57,8 @@ export default function SearchBar() {
             name="name-search-radio"
             type="radio"
             id="name-search-radio"
-            value="name-search-radio"
-            checked={ chosenRadio === 'name-search-radio' }
+            value="search.php?s="
+            checked={ chosenRadio === 'search.php?s=' }
             onChange={ ({ target }) => setChosenRadio(target.value) }
             data-testid="name-search-radio"
           />
@@ -138,8 +70,8 @@ export default function SearchBar() {
             name="first-letter-search-radio"
             type="radio"
             id="first-letter-search-radio"
-            value="first-letter-search-radio"
-            checked={ chosenRadio === 'first-letter-search-radio' }
+            value="search.php?f="
+            checked={ chosenRadio === 'search.php?f=' }
             onChange={ ({ target }) => setChosenRadio(target.value) }
             data-testid="first-letter-search-radio"
           />
@@ -153,14 +85,6 @@ export default function SearchBar() {
           >
             SEARCH
           </button>
-        </div>
-        <div>
-          {page === 'Cocktails' && calledAPI && 'Retorna a pesquisa de BEBIDAS'}
-          {page === 'Meals' && calledAPI && 'Retorna a pesquisa de COMIDAS'}
-          {/* {page === 'Cocktails' && calledAPI && resultSearch
-            .map((result) => <p key={ result.idDrink }>{result.strDrink}</p>)}
-          {page === 'Meals' && calledAPI && resultSearch
-            .map((result) => <p key={ result.idMeal }>{result.strMeal}</p>)} */}
         </div>
       </div>
     </div>
