@@ -54,6 +54,6 @@ describe('Testing Done Recipes page', () => {
     userEvent.click(btns[4]);
     expect(btns[4]).toHaveTextContent('Link copied!');
     expect(navigator.clipboard.writeText).toHaveBeenCalled();
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/meal/52771');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost:3000/meals/52771');
   });
 });

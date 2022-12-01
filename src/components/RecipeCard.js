@@ -7,7 +7,7 @@ function RecipeCard({ recipe, index }) {
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
     setClicked(true);
-    navigator.clipboard.writeText(`http://localhost:3000/${recipe.type}/${recipe.id}`);
+    navigator.clipboard.writeText(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
   };
   return (
     <div>
