@@ -18,3 +18,10 @@ export const theCocktailDBFirstLet = async (firstLet) => {
   const { drinks } = await fetchTheMeal.json();
   return drinks;
 };
+
+export const getDrinkCategoryList = async () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const fetchCategories = await fetch(endpoint);
+  const { drinks } = await fetchCategories.json();
+  return drinks;
+};

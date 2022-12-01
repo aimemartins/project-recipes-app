@@ -1,20 +1,44 @@
 import React, { useContext, useEffect } from 'react';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
-import { theMealDBName } from '../services/theMealDB';
+import { getMealCategoryList, theMealDBName } from '../services/theMealDB';
 
 function Meals() {
-  const { mealList, setMealList } = useContext(RecipesAppContext);
+  const {
+    mealList,
+    setMealList,
+    mealCategories,
+    setMealCategories,
+  } = useContext(RecipesAppContext);
+
   const MAX_RECIPES = 12;
+  const MAX_CATEGORIES = 5;
 
   useEffect(() => {
     theMealDBName().then(
       (data) => setMealList(data.slice(0, MAX_RECIPES)),
     );
   }, [setMealList]);
+  useEffect(() => {
+    getMealCategoryList().then(
+      (data) => setMealCategories(data.slice(0, MAX_CATEGORIES)),
+    );
+  }, [setMealCategories]);
+
   return (
     <div>
       <Header title="Meals" />
+      {mealCategories
+        .map((category) => (
+          <button
+            type="button"
+            key={ category.strCategory }
+            data-testid={ `${category.strCategory}-category-filter` }
+          >
+            {category.strCategory}
+
+          </button>
+        ))}
       <section>
         { mealList
           .map((meal) => (

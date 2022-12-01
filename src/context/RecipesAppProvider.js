@@ -8,6 +8,8 @@ function RecipesAppProvider({ children }) {
   const [resultSearch, setResultSearch] = useState([]);
   const [mealList, setMealList] = useState([]);
   const [drinkList, setDrinkList] = useState([]);
+  const [drinkCategories, setDrinkCategories] = useState([]);
+  const [mealCategories, setMealCategories] = useState([]);
 
   const value = useMemo(() => ({
     searchInput,
@@ -20,6 +22,10 @@ function RecipesAppProvider({ children }) {
     setMealList,
     drinkList,
     setDrinkList,
+    drinkCategories,
+    setDrinkCategories,
+    mealCategories,
+    setMealCategories,
   }), [
     searchInput,
     setsearchInput,
@@ -31,6 +37,10 @@ function RecipesAppProvider({ children }) {
     setMealList,
     drinkList,
     setDrinkList,
+    drinkCategories,
+    setDrinkCategories,
+    mealCategories,
+    setMealCategories,
   ]);
 
   return (
