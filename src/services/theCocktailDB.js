@@ -5,7 +5,7 @@ export const theCocktailDBIngredient = async (ingredient) => {
   return drinks;
 };
 
-export const theCocktailDBName = async (name) => {
+export const theCocktailDBName = async (name = '') => {
   const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
   const fetchTheMeal = await fetch(endpoint);
   const { drinks } = await fetchTheMeal.json();

@@ -5,10 +5,11 @@ export const theMealDBIngredient = async (ingredient) => {
   return meals;
 };
 
-export const theMealDBName = async (name) => {
+export const theMealDBName = async (name = '') => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
   const fetchTheMeal = await fetch(endpoint);
   const { meals } = await fetchTheMeal.json();
+  console.log(meals);
   return meals;
 };
 
