@@ -6,6 +6,10 @@ function RecipesAppProvider({ children }) {
   const [searchInput, setsearchInput] = useState(''); // estado da pesquisa de texto
   const [chosenRadio, setChosenRadio] = useState('');
   const [resultSearch, setResultSearch] = useState([]);
+  const [mealList, setMealList] = useState([]);
+  const [drinkList, setDrinkList] = useState([]);
+  const [drinkCategories, setDrinkCategories] = useState([]);
+  const [mealCategories, setMealCategories] = useState([]);
 
   const value = useMemo(() => ({
     searchInput,
@@ -14,6 +18,14 @@ function RecipesAppProvider({ children }) {
     setChosenRadio,
     resultSearch,
     setResultSearch,
+    mealList,
+    setMealList,
+    drinkList,
+    setDrinkList,
+    drinkCategories,
+    setDrinkCategories,
+    mealCategories,
+    setMealCategories,
   }), [
     searchInput,
     setsearchInput,
@@ -21,6 +33,14 @@ function RecipesAppProvider({ children }) {
     setChosenRadio,
     resultSearch,
     setResultSearch,
+    mealList,
+    setMealList,
+    drinkList,
+    setDrinkList,
+    drinkCategories,
+    setDrinkCategories,
+    mealCategories,
+    setMealCategories,
   ]);
 
   return (
