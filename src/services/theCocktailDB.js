@@ -25,3 +25,10 @@ export const getDrinkCategoryList = async () => {
   const { drinks } = await fetchCategories.json();
   return drinks;
 };
+
+export const getDrink = async (id) => {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(endpoint);
+  const result = await response.json();
+  return result;
+};
