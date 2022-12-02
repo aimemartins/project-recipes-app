@@ -25,3 +25,10 @@ export const getMealCategoryList = async () => {
   const { meals } = await fetchCategories.json();
   return meals;
 };
+
+export const getMeal = async (id) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(endpoint);
+  const result = await response.json();
+  return result;
+};
