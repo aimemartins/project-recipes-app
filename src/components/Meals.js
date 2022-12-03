@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
-import { getMealCategoryList, theMealDBName } from '../services/theMealDB';
+import {
+  getMealCategoryList, getMealsByCategory, theMealDBName } from '../services/theMealDB';
 
 function Meals() {
   const {
@@ -9,6 +10,12 @@ function Meals() {
     setMealList,
     mealCategories,
     setMealCategories,
+    currentCategory,
+    setCurrentCategory,
+    mealsByCategory,
+    setMealsByCategory,
+    isFiltering,
+    setIsFiltering,
   } = useContext(RecipesAppContext);
 
   const MAX_RECIPES = 12;
@@ -24,41 +31,83 @@ function Meals() {
       (data) => setMealCategories(data.slice(0, MAX_CATEGORIES)),
     );
   }, [setMealCategories]);
+  useEffect(() => {
+    getMealsByCategory(currentCategory).then(
+      (data) => setMealsByCategory(data),
+    );
+  }, [currentCategory, setMealsByCategory]);
+
+  const handleClick = ({ target }) => {
+    setIsFiltering(true);
+    setCurrentCategory(target.value);
+  };
 
   return (
     <div>
       <Header title="Meals" />
-      {mealCategories
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => {
+          setIsFiltering(false);
+          setCurrentCategory('');
+        } }
+      >
+        All
+      </button>
+      { mealCategories
         .map((category) => (
           <button
             type="button"
             key={ category.strCategory }
+            value={ category.strCategory }
             data-testid={ `${category.strCategory}-category-filter` }
+            onClick={ handleClick }
           >
             {category.strCategory}
 
           </button>
         ))}
       <section>
-        { mealList
-          .map((meal) => (
-            <div
-              key={ meal.strMeal }
-              data-testid={ `${mealList.indexOf(meal)}-recipe-card` }
-            >
-              <img
-                data-testid={ `${mealList.indexOf(meal)}-card-img` }
-                src={ meal.strMealThumb }
-                alt={ meal.strMeal }
-              />
-              <h3
-                data-testid={ `${mealList.indexOf(meal)}-card-name` }
+        { !isFiltering
+          ? mealList
+            .map((meal) => (
+              <div
+                key={ meal.strMeal }
+                data-testid={ `${mealList.indexOf(meal)}-recipe-card` }
               >
-                {meal.strMeal}
+                <img
+                  data-testid={ `${mealList.indexOf(meal)}-card-img` }
+                  src={ meal.strMealThumb }
+                  alt={ meal.strMeal }
+                />
+                <h3
+                  data-testid={ `${mealList.indexOf(meal)}-card-name` }
+                >
+                  {meal.strMeal}
 
-              </h3>
-            </div>
-          ))}
+                </h3>
+              </div>
+            ))
+          : mealsByCategory
+            .map((m) => (
+              <div
+                key={ m.strMeal }
+                data-testid={ `${mealList.indexOf(m)}-recipe-card` }
+              >
+                <img
+                  data-testid={ `${mealList.indexOf(m)}-card-img` }
+                  src={ m.strMealThumb }
+                  alt={ m.strMeal }
+                />
+                <h3
+                  data-testid={ `${mealList.indexOf(m)}-card-name` }
+                >
+                  {m.strMeal}
+
+                </h3>
+              </div>
+            ))}
       </section>
     </div>
   );
