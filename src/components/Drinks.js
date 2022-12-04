@@ -13,8 +13,8 @@ function Drinks() {
     setDrinkCategories,
     currentCategory,
     setCurrentCategory,
-    drinksByCategory,
-    setDrinksByCategory,
+    recipesByCategory,
+    setRecipesByCategory,
     isFiltering,
     setIsFiltering,
   } = useContext(RecipesAppContext);
@@ -34,9 +34,9 @@ function Drinks() {
   }, [setDrinkCategories]);
   useEffect(() => {
     getDrinksByCategory(currentCategory).then(
-      (data) => setDrinksByCategory(data),
+      (data) => setRecipesByCategory(data.slice(0, MAX_RECIPES)),
     );
-  }, [currentCategory, setDrinksByCategory]);
+  }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
     setIsFiltering(true);
@@ -90,19 +90,19 @@ function Drinks() {
                 </h3>
               </div>
             ))
-          : drinksByCategory
+          : recipesByCategory
             .map((d) => (
               <div
                 key={ d.strDrink }
-                data-testid={ `${drinkList.indexOf(d)}-recipe-card` }
+                data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
               >
                 <img
-                  data-testid={ `${drinkList.indexOf(d)}-card-img` }
+                  data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
                   src={ d.strDrinkThumb }
                   alt={ d.strDrink }
                 />
                 <h3
-                  data-testid={ `${drinkList.indexOf(d)}-card-name` }
+                  data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
                 >
                   {d.strDrink}
 

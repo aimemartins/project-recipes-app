@@ -26,9 +26,12 @@ export const getDrinkCategoryList = async (name = 'list') => {
   return drinks;
 };
 
-export const getDrinksByCategory = async (keyword = '') => {
+export const getDrinksByCategory = async (keyword) => {
   const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${keyword}`;
   const fetchDrinks = await fetch(endpoint);
   const { drinks } = await fetchDrinks.json();
+  if (!keyword) {
+    return [];
+  }
   return drinks;
 };

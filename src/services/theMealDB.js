@@ -26,10 +26,12 @@ export const getMealCategoryList = async (name = 'list') => {
   return meals;
 };
 
-export const getMealsByCategory = async (keyword = '') => {
+export const getMealsByCategory = async (keyword) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${keyword}`;
   const fetchMeals = await fetch(endpoint);
   const { meals } = await fetchMeals.json();
-  console.log(meals);
+  if (!keyword) {
+    return [];
+  }
   return meals;
 };

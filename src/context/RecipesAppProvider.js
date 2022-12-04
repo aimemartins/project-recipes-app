@@ -10,9 +10,8 @@ function RecipesAppProvider({ children }) {
   const [drinkList, setDrinkList] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
   const [mealCategories, setMealCategories] = useState([]);
-  const [currentCategory, setCurrentCategory] = useState('Beef');
-  const [mealsByCategory, setMealsByCategory] = useState([]);
-  const [drinksByCategory, setDrinksByCategory] = useState([]);
+  const [currentCategory, setCurrentCategory] = useState('');
+  const [recipesByCategory, setRecipesByCategory] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
 
   const value = useMemo(() => ({
@@ -32,10 +31,8 @@ function RecipesAppProvider({ children }) {
     setMealCategories,
     currentCategory,
     setCurrentCategory,
-    mealsByCategory,
-    setMealsByCategory,
-    drinksByCategory,
-    setDrinksByCategory,
+    recipesByCategory,
+    setRecipesByCategory,
     isFiltering,
     setIsFiltering,
   }), [
@@ -55,10 +52,8 @@ function RecipesAppProvider({ children }) {
     setMealCategories,
     currentCategory,
     setCurrentCategory,
-    mealsByCategory,
-    setMealsByCategory,
-    drinksByCategory,
-    setDrinksByCategory,
+    recipesByCategory,
+    setRecipesByCategory,
     isFiltering,
     setIsFiltering,
   ]);

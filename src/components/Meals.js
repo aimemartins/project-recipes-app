@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 import {
-  getMealCategoryList, getMealsByCategory, theMealDBName } from '../services/theMealDB';
+  getMealCategoryList, getMealsByCategory, theMealDBName,
+} from '../services/theMealDB';
 
 function Meals() {
   const {
@@ -12,8 +13,8 @@ function Meals() {
     setMealCategories,
     currentCategory,
     setCurrentCategory,
-    mealsByCategory,
-    setMealsByCategory,
+    recipesByCategory,
+    setRecipesByCategory,
     isFiltering,
     setIsFiltering,
   } = useContext(RecipesAppContext);
@@ -33,9 +34,9 @@ function Meals() {
   }, [setMealCategories]);
   useEffect(() => {
     getMealsByCategory(currentCategory).then(
-      (data) => setMealsByCategory(data),
+      (data) => setRecipesByCategory(data.slice(0, MAX_RECIPES)),
     );
-  }, [currentCategory, setMealsByCategory]);
+  }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
     setIsFiltering(true);
@@ -55,7 +56,7 @@ function Meals() {
       >
         All
       </button>
-      { mealCategories
+      {mealCategories
         .map((category) => (
           <button
             type="button"
@@ -89,21 +90,21 @@ function Meals() {
                 </h3>
               </div>
             ))
-          : mealsByCategory
-            .map((m) => (
+          : recipesByCategory
+            .map((d) => (
               <div
-                key={ m.strMeal }
-                data-testid={ `${mealList.indexOf(m)}-recipe-card` }
+                key={ d.strMeal }
+                data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
               >
                 <img
-                  data-testid={ `${mealList.indexOf(m)}-card-img` }
-                  src={ m.strMealThumb }
-                  alt={ m.strMeal }
+                  data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
+                  src={ d.strMealThumb }
+                  alt={ d.strMeal }
                 />
                 <h3
-                  data-testid={ `${mealList.indexOf(m)}-card-name` }
+                  data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
                 >
-                  {m.strMeal}
+                  {d.strMeal}
 
                 </h3>
               </div>
