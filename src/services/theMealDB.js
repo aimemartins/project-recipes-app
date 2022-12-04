@@ -19,12 +19,23 @@ export const theMealDBFirstLet = async (firstLet) => {
   return meals;
 };
 
-export const getMealCategoryList = async () => {
-  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+export const getMealCategoryList = async (name = 'list') => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/list.php?c=${name}`;
   const fetchCategories = await fetch(endpoint);
   const { meals } = await fetchCategories.json();
   return meals;
 };
+
+
+export const getMealsByCategory = async (keyword) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${keyword}`;
+  const fetchMeals = await fetch(endpoint);
+  const { meals } = await fetchMeals.json();
+  if (!keyword) {
+    return [];
+  }
+  return meals;
+}
 
 export const getMeal = async (id) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;

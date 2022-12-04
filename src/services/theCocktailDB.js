@@ -19,12 +19,22 @@ export const theCocktailDBFirstLet = async (firstLet) => {
   return drinks;
 };
 
-export const getDrinkCategoryList = async () => {
-  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+export const getDrinkCategoryList = async (name = 'list') => {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=${name}`;
   const fetchCategories = await fetch(endpoint);
   const { drinks } = await fetchCategories.json();
   return drinks;
 };
+
+export const getDrinksByCategory = async (keyword) => {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${keyword}`;
+  const fetchDrinks = await fetch(endpoint);
+  const { drinks } = await fetchDrinks.json();
+  if (!keyword) {
+    return [];
+  }
+  return drinks;
+ };
 
 export const getDrink = async (id) => {
   const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
