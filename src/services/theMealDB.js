@@ -26,7 +26,6 @@ export const getMealCategoryList = async (name = 'list') => {
   return meals;
 };
 
-
 export const getMealsByCategory = async (keyword) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${keyword}`;
   const fetchMeals = await fetch(endpoint);
@@ -35,7 +34,7 @@ export const getMealsByCategory = async (keyword) => {
     return [];
   }
   return meals;
-}
+};
 
 export const getMeal = async (id) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
