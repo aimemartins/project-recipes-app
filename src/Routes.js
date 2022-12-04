@@ -5,32 +5,18 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Recipes from './components/Recipes';
+import RecipeDetails from './pages/RecipeDetails';
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/meals" component={ Recipes } />
-      <Route path="/drinks" component={ Recipes } />
-      {/* <Route
-          path="/meals/:id"
-          render={ (props) => (
-            < { ...props } />
-          ) }
-        />
+      <Route exact path="/meals" component={ Recipes } />
+      <Route exact path="/drinks" component={ Recipes } />
+      <Route path="/meals/:id" component={ RecipeDetails } />
+      <Route path="/drinks/:id" component={ RecipeDetails } />
+      {/*
         <Route
-          path="/drinks/:id"
-          render={ (props) => (
-            < { ...props } />
-          ) }
-        />
-        <Route
-          path="/meals/:id-da-receita/in-progress"
-          render={ (props) => (
-            < { ...props } />
-          ) }
-        />
-         <Route
           path="/drinks/:id-da-receita/in-progress"
           render={ (props) => (
             < { ...props } />
