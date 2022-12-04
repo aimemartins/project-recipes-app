@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-
 import { useHistory, useParams } from 'react-router-dom';
-// import { theCocktailDBName } from '../services/theCocktailDB';
-// import { theMealDBName } from '../services/theMealDB';
-// import { getDrink } from "../services/theCocktailDB";
-// import { getMeal } from "../services/theMealDB";
+import Carousel from '../components/Carousel';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
+
+const maxRecommendation = 6;
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState('');
-  const [recomend, setRecomend] = useState('');
+  const [recommend, setRecommend] = useState('');
+  const [inProgress, setInProgress] = useState(false);
+  const [progress, setProgress] = useState({});
   const history = useHistory();
   const arrLoc = history.location.pathname.split('/');
   const type = arrLoc[1];
   const { id } = useParams();
-
+  console.log(progress);
   useEffect(() => {
     const getDrink = async (idRecipe) => {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`;
@@ -26,45 +28,64 @@ function RecipeDetails() {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idRecipe}`;
       const response = await fetch(endpoint);
       const result = await response.json();
+      // console.log(result);
       await setRecipe(result);
     };
 
-    const getDrinkRecomend = async () => {
+    const getDrinkRecommend = async () => {
       const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
       const fetchTheMeal = await fetch(endpoint);
       const meals = await fetchTheMeal.json();
-      await setRecomend(meals);
+      const maxMeals = meals.meals.length <= maxRecommendation
+        ? meals.meals : meals.meals.slice(0, maxRecommendation);
+      await setRecommend(maxMeals);
     };
 
-    const getMealRecomend = async () => {
+    const getMealRecommend = async () => {
       const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
       const fetchTheDrink = await fetch(endpoint);
       const drinks = await fetchTheDrink.json();
-      await setRecomend(drinks);
+      const maxDrinks = drinks.drinks.length <= maxRecommendation
+        ? drinks.drinks : drinks.drinks.slice(0, maxRecommendation);
+      await setRecommend(maxDrinks);
     };
 
     if (type === 'meals') {
       getMeal(id);
-      getMealRecomend();
+      getMealRecommend();
     } else {
       getDrink(id);
-      getDrinkRecomend();
+      getDrinkRecommend();
     }
+  }, []);
 
-    console.log(recomend);
-  }, [id, recomend, type]);
-
+  useEffect(() => {
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(
+        {
+          drinks: {
+            178319: [],
+          },
+          meals: {
+            52771: [],
+          },
+        },
+      ));
+    }
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setProgress(inProgressRecipes);
+    setInProgress(Object.keys(inProgressRecipes[type]).includes(id));
+  }, []);
   if (recipe !== '') {
     const keys = Object.keys(recipe[type][0]);
     const ingredients = keys.filter((key) => key.includes('Ingredient'));
     const measures = keys.filter((key) => key.includes('Measure'));
     const video = (
-      <video data-testid="video" width="750" height="500" controls>
+      <video data-testid="video" max-width="750" max-height="500" controls>
         <track default kind="captions" />
         <source src={ recipe[type][0].strYoutube } type="video/mp4" />
       </video>
     );
-
     return (
       <>
         <img
@@ -72,6 +93,7 @@ function RecipeDetails() {
             ? recipe.meals[0].strMealThumb
             : recipe.drinks[0].strDrinkThumb }
           alt="recipe"
+          width="50px"
           data-testid="recipe-photo"
         />
         <h1 data-testid="recipe-title">
@@ -95,12 +117,16 @@ function RecipeDetails() {
           {recipe[type][0].strInstructions}
         </p>
         {type === 'meals' ? video : ''}
+        {recommend.length !== 0 && <Carousel recommend={ recommend } category={ type } />}
+        <ShareButton type={ type } id={ id } />
+        <FavoriteButton recipe={ recipe } id={ id } type={ type } />
         <button
           type="button"
           data-testid="start-recipe-btn"
           style={ { bottom: '0px', position: 'fixed' } }
+          onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
         >
-          Start recipe
+          {inProgress ? 'Continue Recipe' : 'Start recipe'}
         </button>
       </>
     );

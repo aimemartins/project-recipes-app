@@ -17,18 +17,6 @@ function Routes() {
       <Route path="/drinks/:id" component={ RecipeDetails } />
       {/*
         <Route
-          path="/drinks/:id"
-          render={ (props) => (
-            < { ...props } />
-          ) }
-        />
-        <Route
-          path="/meals/:id-da-receita/in-progress"
-          render={ (props) => (
-            < { ...props } />
-          ) }
-        />
-         <Route
           path="/drinks/:id-da-receita/in-progress"
           render={ (props) => (
             < { ...props } />

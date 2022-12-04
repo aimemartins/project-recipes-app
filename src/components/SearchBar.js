@@ -17,7 +17,6 @@ export default function SearchBar() {
 
   const handleClick = async () => {
     const { pathname } = history.location;
-    console.log(pathname);
     const url = pathname === '/meals' ? 'themealdb' : 'thecocktaildb';
     if (chosenRadio === 'search.php?f=' && searchInput.length > 1) {
       global.alert('Your search must have only 1 (one) character');

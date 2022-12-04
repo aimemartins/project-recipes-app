@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareIcon from '../images/shareIcon.svg';
 
+const threeSeconds = 3000;
 function RecipeCard({ recipe, index }) {
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
     setClicked(true);
     navigator.clipboard.writeText(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
   };
+  useEffect(() => {
+    if (clicked) {
+      setTimeout(() => {
+        setClicked(false);
+      }, threeSeconds);
+    }
+  }, [clicked]);
   return (
     <div>
       <Link to={ `${recipe.type}s/${recipe.id}` }>
