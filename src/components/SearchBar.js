@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import RecipesAppContext from '../context/RecipesAppContext';
 import fetchAPI from '../services/API';
 
+const MAX_RECIPES = 12;
+
 export default function SearchBar() {
   const
     {
@@ -15,14 +17,40 @@ export default function SearchBar() {
 
   const history = useHistory();
 
-  const handleClick = async () => {
+  const returnsDetailsPage = (response) => {
     const { pathname } = history.location;
+    if (pathname === '/meals') {
+      history.push(`/meals/${response[0].idMeal}`);
+      // console.log('vou para tela de detalhes de comida');
+    } else {
+      history.push(`/drinks/${response[0].idDrink}`);
+      // console.log('vou para tela de detalhes de bebida');
+    }
+  };
+
+  const handleFetch = async () => {
+    const { pathname } = history.location;
+    const type = pathname.split('/')[1];
     const url = pathname === '/meals' ? 'themealdb' : 'thecocktaildb';
+    const response = await fetchAPI(url, chosenRadio, searchInput);
+    if (response[type] === null) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else if (response[type].length === 1) {
+      // console.log('vou para página de detalhes');
+      returnsDetailsPage(response[type]);
+    } else {
+      setResultSearch(response[type].slice(0, MAX_RECIPES));
+    }
+    // if (response[type].length > 1) {
+    // }
+  };
+
+  const handleClick = () => {
     if (chosenRadio === 'search.php?f=' && searchInput.length > 1) {
       global.alert('Your search must have only 1 (one) character');
+    } else {
+      handleFetch();
     }
-    const response = await fetchAPI(url, chosenRadio, searchInput);
-    setResultSearch(response);
   };
 
   return (
