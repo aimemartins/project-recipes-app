@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 
@@ -42,8 +43,12 @@ function Drinks() {
   }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
-    setIsFiltering(true);
-    setCurrentCategory(target.value);
+    if (isFiltering) {
+      setIsFiltering(false);
+    } else {
+      setIsFiltering(true);
+      setCurrentCategory(target.value);
+    }
   };
 
   return (
@@ -76,41 +81,49 @@ function Drinks() {
         {!isFiltering
           ? drinkList
             .map((drink) => (
-              <div
+              <Link
                 key={ drink.strDrink }
-                data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
+                to={ `/drinks/${drink.idDrink}` }
               >
-                <img
-                  data-testid={ `${drinkList.indexOf(drink)}-card-img` }
-                  src={ drink.strDrinkThumb }
-                  alt={ drink.strDrink }
-                />
-                <h3
-                  data-testid={ `${drinkList.indexOf(drink)}-card-name` }
+                <div
+                  data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
                 >
-                  {drink.strDrink}
+                  <img
+                    data-testid={ `${drinkList.indexOf(drink)}-card-img` }
+                    src={ drink.strDrinkThumb }
+                    alt={ drink.strDrink }
+                  />
+                  <h3
+                    data-testid={ `${drinkList.indexOf(drink)}-card-name` }
+                  >
+                    {drink.strDrink}
 
-                </h3>
-              </div>
+                  </h3>
+                </div>
+              </Link>
             ))
           : recipesByCategory
             .map((d) => (
-              <div
+              <Link
                 key={ d.strDrink }
-                data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
+                to={ `/drinks/${d.idDrink}` }
               >
-                <img
-                  data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
-                  src={ d.strDrinkThumb }
-                  alt={ d.strDrink }
-                />
-                <h3
-                  data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
+                <div
+                  data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
                 >
-                  {d.strDrink}
+                  <img
+                    data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
+                    src={ d.strDrinkThumb }
+                    alt={ d.strDrink }
+                  />
+                  <h3
+                    data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
+                  >
+                    {d.strDrink}
 
-                </h3>
-              </div>
+                  </h3>
+                </div>
+              </Link>
             ))}
       </section>
     </div>

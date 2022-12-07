@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 
@@ -42,8 +43,12 @@ function Meals() {
   }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
-    setIsFiltering(true);
-    setCurrentCategory(target.value);
+    if (isFiltering) {
+      setIsFiltering(false);
+    } else {
+      setIsFiltering(true);
+      setCurrentCategory(target.value);
+    }
   };
 
   return (
@@ -76,41 +81,49 @@ function Meals() {
         { !isFiltering
           ? mealList
             .map((meal) => (
-              <div
+              <Link
                 key={ meal.strMeal }
-                data-testid={ `${mealList.indexOf(meal)}-recipe-card` }
+                to={ `/meals/${meal.idMeal}` }
               >
-                <img
-                  data-testid={ `${mealList.indexOf(meal)}-card-img` }
-                  src={ meal.strMealThumb }
-                  alt={ meal.strMeal }
-                />
-                <h3
-                  data-testid={ `${mealList.indexOf(meal)}-card-name` }
+                <div
+                  data-testid={ `${mealList.indexOf(meal)}-recipe-card` }
                 >
-                  {meal.strMeal}
+                  <img
+                    data-testid={ `${mealList.indexOf(meal)}-card-img` }
+                    src={ meal.strMealThumb }
+                    alt={ meal.strMeal }
+                  />
+                  <h3
+                    data-testid={ `${mealList.indexOf(meal)}-card-name` }
+                  >
+                    {meal.strMeal}
 
-                </h3>
-              </div>
+                  </h3>
+                </div>
+              </Link>
             ))
           : recipesByCategory
             .map((d) => (
-              <div
+              <Link
                 key={ d.strMeal }
-                data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
+                to={ `/meals/${d.idMeal}` }
               >
-                <img
-                  data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
-                  src={ d.strMealThumb }
-                  alt={ d.strMeal }
-                />
-                <h3
-                  data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
+                <div
+                  data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
                 >
-                  {d.strMeal}
+                  <img
+                    data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
+                    src={ d.strMealThumb }
+                    alt={ d.strMeal }
+                  />
+                  <h3
+                    data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
+                  >
+                    {d.strMeal}
 
-                </h3>
-              </div>
+                  </h3>
+                </div>
+              </Link>
             ))}
       </section>
     </div>
