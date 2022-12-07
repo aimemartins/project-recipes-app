@@ -86,13 +86,15 @@ function Meals() {
                 to={ `/meals/${meal.idMeal}` }
               >
                 <div
-                  data-testid={ `${mealList.indexOf(meal)}-recipe-card` }
-                >
-                  <img
-                    data-testid={ `${mealList.indexOf(meal)}-card-img` }
-                    src={ meal.strMealThumb }
-                    alt={ meal.strMeal }
-                  />
+                data-testid={ `${mealList.indexOf(meal)}-recipe-card` }
+                style={ { width: '100%' } }
+              >
+                <img
+                  data-testid={ `${mealList.indexOf(meal)}-card-img` }
+                  src={ meal.strMealThumb }
+                  alt={ meal.strMeal }
+                  style={ { width: '40px', height: '40px' } }
+                />
                   <h3
                     data-testid={ `${mealList.indexOf(meal)}-card-name` }
                   >
@@ -109,13 +111,15 @@ function Meals() {
                 to={ `/meals/${d.idMeal}` }
               >
                 <div
-                  data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
-                >
-                  <img
-                    data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
-                    src={ d.strMealThumb }
-                    alt={ d.strMeal }
-                  />
+                data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
+                style={ { width: '100%' } }
+              >
+                <img
+                  data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
+                  src={ d.strMealThumb }
+                  alt={ d.strMeal }
+                  style={ { width: '40px', height: '40px' } }
+                />
                   <h3
                     data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
                   >
