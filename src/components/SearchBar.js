@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesAppContext from '../context/RecipesAppContext';
 import fetchAPI from '../services/API';
@@ -12,7 +12,10 @@ export default function SearchBar() {
       setsearchInput,
       chosenRadio,
       setChosenRadio,
+      resultSearch,
       setResultSearch,
+      setRecipesByCategory,
+      setIsFiltering,
     } = useContext(RecipesAppContext);
 
   const history = useHistory();
@@ -39,19 +42,25 @@ export default function SearchBar() {
       // console.log('vou para página de detalhes');
       returnsDetailsPage(response[type]);
     } else {
-      setResultSearch(response[type].slice(0, MAX_RECIPES));
+      const result = response[type].slice(0, MAX_RECIPES);
+      console.log(result);
+      setResultSearch(result);
     }
     // if (response[type].length > 1) {
     // }
   };
 
   const handleClick = () => {
+    setIsFiltering(true);
     if (chosenRadio === 'search.php?f=' && searchInput.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     } else {
       handleFetch();
     }
   };
+  useEffect(() => {
+    setRecipesByCategory(resultSearch);
+  }, [resultSearch]);
 
   return (
     <div className="SearchBar">

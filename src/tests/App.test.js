@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import renderWithRouter from './helpers/renderWith';
+import { renderWithRouter } from './helpers/renderWith';
 
 /* test('Farewell, front-end', () => {
   // Este arquivo pode ser modificado ou deletado sem problemas

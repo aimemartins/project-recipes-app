@@ -23,6 +23,7 @@ function Meals() {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/list.php?c=${name}`;
       const fetchCategories = await fetch(endpoint);
       const { meals } = await fetchCategories.json();
+
       return setMealCategories(meals.slice(0, MAX_CATEGORIES));
     }
     getMealCategoryList();
@@ -45,7 +46,6 @@ function Meals() {
     setIsFiltering(true);
     setCurrentCategory(target.value);
   };
-
   return (
     <div>
       <Header title="Meals" />
