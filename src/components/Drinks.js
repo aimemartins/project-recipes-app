@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 
@@ -42,8 +43,12 @@ function Drinks() {
   }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
-    setIsFiltering(true);
-    setCurrentCategory(target.value);
+    if (isFiltering) {
+      setIsFiltering(false);
+    } else {
+      setIsFiltering(true);
+      setCurrentCategory(target.value);
+    }
   };
 
   return (
@@ -76,10 +81,14 @@ function Drinks() {
         {!isFiltering
           ? drinkList
             .map((drink) => (
-              <div
+              <Link
                 key={ drink.strDrink }
-                data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
-                style={ { width: '100%' } }
+                to={ `/drinks/${drink.idDrink}` }
+              >
+                <div
+                  data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
+                  data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
+                  style={ { width: '100%' } }
               >
                 <img
                   data-testid={ `${drinkList.indexOf(drink)}-card-img` }
@@ -88,17 +97,21 @@ function Drinks() {
                   style={ { width: '40px', height: '40px' } }
                 />
                 <h3
-                  data-testid={ `${drinkList.indexOf(drink)}-card-name` }
-                >
-                  {drink.strDrink}
+                    data-testid={ `${drinkList.indexOf(drink)}-card-name` }
+                  >
+                    {drink.strDrink}
 
-                </h3>
-              </div>
+                  </h3>
+                </div>
+              </Link>
             ))
           : recipesByCategory
             .map((d) => (
-              <div
+              <Link
                 key={ d.strDrink }
+                to={ `/drinks/${d.idDrink}` }
+              >
+               <div
                 data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
                 style={ { width: '100%' } }
               >
@@ -108,13 +121,14 @@ function Drinks() {
                   alt={ d.strDrink }
                   style={ { width: '40px', height: '40px' } }
                 />
-                <h3
-                  data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
-                >
-                  {d.strDrink}
+                  <h3
+                    data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
+                  >
+                    {d.strDrink}
 
-                </h3>
-              </div>
+                  </h3>
+                </div>
+              </Link>
             ))}
       </section>
     </div>

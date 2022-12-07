@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 
@@ -42,8 +43,12 @@ function Meals() {
   }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
-    setIsFiltering(true);
-    setCurrentCategory(target.value);
+    if (isFiltering) {
+      setIsFiltering(false);
+    } else {
+      setIsFiltering(true);
+      setCurrentCategory(target.value);
+    }
   };
 
   return (
@@ -76,8 +81,11 @@ function Meals() {
         { !isFiltering
           ? mealList
             .map((meal) => (
-              <div
+              <Link
                 key={ meal.strMeal }
+                to={ `/meals/${meal.idMeal}` }
+              >
+                <div
                 data-testid={ `${mealList.indexOf(meal)}-recipe-card` }
                 style={ { width: '100%' } }
               >
@@ -87,18 +95,22 @@ function Meals() {
                   alt={ meal.strMeal }
                   style={ { width: '40px', height: '40px' } }
                 />
-                <h3
-                  data-testid={ `${mealList.indexOf(meal)}-card-name` }
-                >
-                  {meal.strMeal}
+                  <h3
+                    data-testid={ `${mealList.indexOf(meal)}-card-name` }
+                  >
+                    {meal.strMeal}
 
-                </h3>
-              </div>
+                  </h3>
+                </div>
+              </Link>
             ))
           : recipesByCategory
             .map((d) => (
-              <div
+              <Link
                 key={ d.strMeal }
+                to={ `/meals/${d.idMeal}` }
+              >
+                <div
                 data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
                 style={ { width: '100%' } }
               >
@@ -108,13 +120,14 @@ function Meals() {
                   alt={ d.strMeal }
                   style={ { width: '40px', height: '40px' } }
                 />
-                <h3
-                  data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
-                >
-                  {d.strMeal}
+                  <h3
+                    data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
+                  >
+                    {d.strMeal}
 
-                </h3>
-              </div>
+                  </h3>
+                </div>
+              </Link>
             ))}
       </section>
     </div>
