@@ -87,16 +87,15 @@ function Drinks() {
               >
                 <div
                   data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
-                  data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
                   style={ { width: '100%' } }
-              >
-                <img
-                  data-testid={ `${drinkList.indexOf(drink)}-card-img` }
-                  src={ drink.strDrinkThumb }
-                  alt={ drink.strDrink }
-                  style={ { width: '40px', height: '40px' } }
-                />
-                <h3
+                >
+                  <img
+                    data-testid={ `${drinkList.indexOf(drink)}-card-img` }
+                    src={ drink.strDrinkThumb }
+                    alt={ drink.strDrink }
+                    style={ { width: '40px', height: '40px' } }
+                  />
+                  <h3
                     data-testid={ `${drinkList.indexOf(drink)}-card-name` }
                   >
                     {drink.strDrink}
@@ -111,16 +110,16 @@ function Drinks() {
                 key={ d.strDrink }
                 to={ `/drinks/${d.idDrink}` }
               >
-               <div
-                data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
-                style={ { width: '100%' } }
-              >
-                <img
-                  data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
-                  src={ d.strDrinkThumb }
-                  alt={ d.strDrink }
-                  style={ { width: '40px', height: '40px' } }
-                />
+                <div
+                  data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
+                  style={ { width: '100%' } }
+                >
+                  <img
+                    data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
+                    src={ d.strDrinkThumb }
+                    alt={ d.strDrink }
+                    style={ { width: '40px', height: '40px' } }
+                  />
                   <h3
                     data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
                   >
