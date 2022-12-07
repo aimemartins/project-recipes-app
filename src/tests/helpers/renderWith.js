@@ -2,6 +2,7 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
+import RecipesAppProvider from '../../context/RecipesAppProvider';
 
 function withRouter(component, history) {
   return (
@@ -11,7 +12,7 @@ function withRouter(component, history) {
   );
 }
 
-function renderWithRouter(
+export function renderWithRouter(
   component,
   {
     initialEntries = ['/'],
@@ -24,4 +25,22 @@ function renderWithRouter(
   };
 }
 
-export default renderWithRouter;
+function renderWithContext(componente) {
+  return {
+    ...render(
+      <RecipesAppProvider>
+        {componente}
+      </RecipesAppProvider>,
+    ),
+  };
+}
+
+export function renderWithRouterAndContext(componente, options = {}) {
+  const { initialEntries = ['/'],
+    history = createMemoryHistory({ initialEntries }),
+  } = options;
+  return {
+    ...renderWithContext(withRouter(componente, history)),
+    history,
+  };
+}
