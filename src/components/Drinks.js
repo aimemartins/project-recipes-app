@@ -79,11 +79,13 @@ function Drinks() {
               <div
                 key={ drink.strDrink }
                 data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
+                style={ { width: '100%' } }
               >
                 <img
                   data-testid={ `${drinkList.indexOf(drink)}-card-img` }
                   src={ drink.strDrinkThumb }
                   alt={ drink.strDrink }
+                  style={ { width: '40px', height: '40px' } }
                 />
                 <h3
                   data-testid={ `${drinkList.indexOf(drink)}-card-name` }
@@ -98,11 +100,13 @@ function Drinks() {
               <div
                 key={ d.strDrink }
                 data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
+                style={ { width: '100%' } }
               >
                 <img
                   data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
                   src={ d.strDrinkThumb }
                   alt={ d.strDrink }
+                  style={ { width: '40px', height: '40px' } }
                 />
                 <h3
                   data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
