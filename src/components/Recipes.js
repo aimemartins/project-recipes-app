@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import Drinks from './Drinks';
 import Meals from './Meals';
+import Drinks from './Drinks';
 import Footer from './Footer';
 import RecipesAppContext from '../context/RecipesAppContext';
 
@@ -14,8 +14,8 @@ export default function Recipes() {
   } = useContext(RecipesAppContext);
 
   useEffect(() => {
-    async function theCocktailDBName() {
-      const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    async function theCocktailDBName(name = '') {
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
       const fetchTheMeal = await fetch(endpoint);
       const { drinks } = await fetchTheMeal.json();
       return setDrinkList(drinks.slice(0, MAX_RECIPES));
@@ -24,15 +24,16 @@ export default function Recipes() {
   }, [setDrinkList]);
 
   useEffect(() => {
-    async function theMealDBName() {
-      const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    async function theMealDBName(name = '') {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
       const fetchTheMeal = await fetch(endpoint);
-      const fetchJson = await fetchTheMeal.json();
-      const { meals } = await fetchJson;
+      const { meals } = await fetchTheMeal.json();
+
       return setMealList(meals.slice(0, MAX_RECIPES));
     }
     theMealDBName();
   }, [setMealList]);
+
   return (
     <>
       { location.pathname === '/drinks'

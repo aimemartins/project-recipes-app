@@ -31,13 +31,13 @@ function Drinks() {
   useEffect(() => {
     async function getDrinksByCategory(keyword) {
       if (!keyword) {
-        return setRecipesByCategory([]);
+        return [];
       }
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${keyword}`;
       const fetchDrinks = await fetch(endpoint);
-      const fetchJson = await fetchDrinks.json();
-      return setRecipesByCategory(fetchJson.drinks.slice(0, MAX_RECIPES));
-    }
+      const { drinks } = await fetchDrinks.json();
+      return setRecipesByCategory(drinks.slice(0, MAX_RECIPES));
+      }
     getDrinksByCategory(currentCategory);
   }, [currentCategory, setRecipesByCategory]);
 

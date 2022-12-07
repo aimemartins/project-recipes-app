@@ -29,9 +29,9 @@ function Meals() {
   }, [setMealCategories]);
 
   useEffect(() => {
-    async function getMealsByCategory(keyword = 'Beef') {
+    async function getMealsByCategory(keyword) {
       if (!keyword) {
-        return setRecipesByCategory([]);
+        return [];
       }
       const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${keyword}`;
       const fetchMeals = await fetch(endpoint);
