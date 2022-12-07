@@ -79,11 +79,13 @@ function Meals() {
               <div
                 key={ meal.strMeal }
                 data-testid={ `${mealList.indexOf(meal)}-recipe-card` }
+                style={ { width: '100%' } }
               >
                 <img
                   data-testid={ `${mealList.indexOf(meal)}-card-img` }
                   src={ meal.strMealThumb }
                   alt={ meal.strMeal }
+                  style={ { width: '40px', height: '40px' } }
                 />
                 <h3
                   data-testid={ `${mealList.indexOf(meal)}-card-name` }
@@ -98,11 +100,13 @@ function Meals() {
               <div
                 key={ d.strMeal }
                 data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
+                style={ { width: '100%' } }
               >
                 <img
                   data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
                   src={ d.strMealThumb }
                   alt={ d.strMeal }
+                  style={ { width: '40px', height: '40px' } }
                 />
                 <h3
                   data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
