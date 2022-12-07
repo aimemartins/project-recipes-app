@@ -38,7 +38,7 @@ function Drinks() {
       const fetchDrinks = await fetch(endpoint);
       const { drinks } = await fetchDrinks.json();
       return setRecipesByCategory(drinks.slice(0, MAX_RECIPES));
-      }
+    }
     getDrinksByCategory(currentCategory);
   }, [currentCategory, setRecipesByCategory]);
 
