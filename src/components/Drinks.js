@@ -1,14 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
-import {
-  getDrinkCategoryList, getDrinksByCategory, theCocktailDBName,
-} from '../services/theCocktailDB';
 
 function Drinks() {
   const {
     drinkList,
-    setDrinkList,
     drinkCategories,
     setDrinkCategories,
     currentCategory,
@@ -23,19 +19,26 @@ function Drinks() {
   const MAX_CATEGORIES = 5;
 
   useEffect(() => {
-    theCocktailDBName().then(
-      (data) => setDrinkList(data.slice(0, MAX_RECIPES)),
-    );
-  }, [setDrinkList]);
-  useEffect(() => {
-    getDrinkCategoryList().then(
-      (data) => setDrinkCategories(data.slice(0, MAX_CATEGORIES)),
-    );
+    async function getDrinkCategoryList(name = 'list') {
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=${name}`;
+      const fetchCategories = await fetch(endpoint);
+      const { drinks } = await fetchCategories.json();
+      return setDrinkCategories(drinks.slice(0, MAX_CATEGORIES));
+    }
+    getDrinkCategoryList();
   }, [setDrinkCategories]);
+
   useEffect(() => {
-    getDrinksByCategory(currentCategory).then(
-      (data) => setRecipesByCategory(data.slice(0, MAX_RECIPES)),
-    );
+    async function getDrinksByCategory(keyword) {
+      if (!keyword) {
+        return [];
+      }
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${keyword}`;
+      const fetchDrinks = await fetch(endpoint);
+      const { drinks } = await fetchDrinks.json();
+      return setRecipesByCategory(drinks.slice(0, MAX_RECIPES));
+    }
+    getDrinksByCategory(currentCategory);
   }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
