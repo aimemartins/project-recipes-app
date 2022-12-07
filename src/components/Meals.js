@@ -1,14 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
-import {
-  getMealCategoryList, getMealsByCategory, theMealDBName,
-} from '../services/theMealDB';
 
 function Meals() {
   const {
     mealList,
-    setMealList,
     mealCategories,
     setMealCategories,
     currentCategory,
@@ -23,19 +19,26 @@ function Meals() {
   const MAX_CATEGORIES = 5;
 
   useEffect(() => {
-    theMealDBName().then(
-      (data) => setMealList(data.slice(0, MAX_RECIPES)),
-    );
-  }, [setMealList]);
-  useEffect(() => {
-    getMealCategoryList().then(
-      (data) => setMealCategories(data.slice(0, MAX_CATEGORIES)),
-    );
+    async function getMealCategoryList(name = 'list') {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/list.php?c=${name}`;
+      const fetchCategories = await fetch(endpoint);
+      const { meals } = await fetchCategories.json();
+      return setMealCategories(meals.slice(0, MAX_CATEGORIES));
+    }
+    getMealCategoryList();
   }, [setMealCategories]);
+
   useEffect(() => {
-    getMealsByCategory(currentCategory).then(
-      (data) => setRecipesByCategory(data.slice(0, MAX_RECIPES)),
-    );
+    async function getMealsByCategory(keyword = 'Beef') {
+      if (!keyword) {
+        return setRecipesByCategory([]);
+      }
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${keyword}`;
+      const fetchMeals = await fetch(endpoint);
+      const { meals } = await fetchMeals.json();
+      return setRecipesByCategory(meals.slice(0, MAX_RECIPES));
+    }
+    getMealsByCategory(currentCategory);
   }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {

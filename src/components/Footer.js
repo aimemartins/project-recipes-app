@@ -7,13 +7,14 @@ import RecipesAppContext from '../context/RecipesAppContext';
 
 function Footer() {
   const history = useHistory();
-  const { setIsFiltering } = useContext(RecipesAppContext);
+  const { setIsFiltering, setCurrentCategory } = useContext(RecipesAppContext);
   return (
     <footer data-testid="footer">
       <button
         onClick={ () => {
           history.push('/meals');
           setIsFiltering(false);
+          setCurrentCategory('');
         } }
         type="button"
         className="buttons-footer"
@@ -29,6 +30,7 @@ function Footer() {
         onClick={ () => {
           history.push('/drinks');
           setIsFiltering(false);
+          setCurrentCategory('');
         } }
         className="buttons-footer"
       >
