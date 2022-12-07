@@ -1,22 +1,50 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import '../styles/Carousel.css';
 
 function Carousel({ recommend, category }) {
+  const [key, setContainerKey] = useState(1);
+  const id = 1;
+  // innerWidth, innerHeight
+  // const { innerWidth, innerHeight } = window;
+  // console.log(innerWidth);
   const [width, setWidth] = useState(0);
   const carousel = useRef();
   const name = category === 'meals' ? 'strDrink' : 'strMeal';
   const image = category === 'meals' ? 'strDrinkThumb' : 'strMealThumb';
   useEffect(() => {
     setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+    // console.log(innerWidth, carousel.current.offsetWidth);
   }, []);
+
+  const handleLeftConstraint = useCallback(() => {
+    const el = document.getElementById(id);
+    if (el) {
+      setWidth(el.scrollWidth - el.offsetWidth);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setContainerKey((prev) => prev + 1);
+      handleLeftConstraint();
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleLeftConstraint]);
+
   return (
     <div className="container">
       <motion.div
         ref={ carousel }
         className="carousel"
         whileTap={ { cursor: 'grabbing' } }
+        key={ key }
+        id={ id }
       >
         <motion.div
           drag="x"
