@@ -43,7 +43,6 @@ export default function SearchBar() {
       returnsDetailsPage(response[type]);
     } else {
       const result = response[type].slice(0, MAX_RECIPES);
-      console.log(result);
       setResultSearch(result);
     }
     // if (response[type].length > 1) {
