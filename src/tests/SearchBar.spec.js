@@ -10,6 +10,10 @@ import meals from '../../cypress/mocks/meals';
 import drinks from '../../cypress/mocks/drinks';
 
 describe('Testa o componente SearchBar da aplicação App de Receitas ', () => {
+  beforeEach(() => {
+    jest.spyOn(global, 'alert');
+    global.alert.mockImplementation(() => {});
+  });
   afterEach(() => {
     global.fetch.mockClear();
   });
@@ -49,5 +53,10 @@ describe('Testa o componente SearchBar da aplicação App de Receitas ', () => {
       expect(name).toHaveAttribute('data-testid', `${index}-card-name`);
     });
     // Lembra de colocar async no test e usar o await find, tá demorando pra renderizar na tela a pesquisa e os botões de categoria, então tem usar pra poder achar
+  });
+  it('', async () => {
+    // Testes que envolvam o alert aparecer na tela.
+    // expect(global.alert).toHaveBeenCalled();
+    // expect(global.alert).toHaveBeenCalledWith('');
   });
 });
