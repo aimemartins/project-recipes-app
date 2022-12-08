@@ -31,7 +31,6 @@ function FavoriteRecipes() {
     setFavRecipes(favoriteRecipes);
     setFilterRecipes(favoriteRecipes);
   }, []);
-  console.log(favRecipes);
   return (
     <div>
       <Header title="Favorite Recipes" />
