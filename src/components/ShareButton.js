@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import ShareIcon from '../images/shareIcon.svg';
 
 const threeSeconds = 3000;
+const copy = require('clipboard-copy');
 
 function ShareButton({ type, id }) {
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
     setClicked(true);
-    navigator.clipboard.writeText(`http://localhost:3000/${type}/${id}`);
+    copy(`http://localhost:3000/${type}/${id}`);
   };
   useEffect(() => {
     if (clicked) {
