@@ -24,10 +24,8 @@ export default function SearchBar() {
     const { pathname } = history.location;
     if (pathname === '/meals') {
       history.push(`/meals/${response[0].idMeal}`);
-      // console.log('vou para tela de detalhes de comida');
     } else {
       history.push(`/drinks/${response[0].idDrink}`);
-      // console.log('vou para tela de detalhes de bebida');
     }
   };
 
@@ -35,22 +33,19 @@ export default function SearchBar() {
     const { pathname } = history.location;
     const type = pathname.split('/')[1];
     const url = pathname === '/meals' ? 'themealdb' : 'thecocktaildb';
+    setIsFiltering(true);
     const response = await fetchAPI(url, chosenRadio, searchInput);
     if (response[type] === null) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     } else if (response[type].length === 1) {
-      // console.log('vou para página de detalhes');
       returnsDetailsPage(response[type]);
     } else {
       const result = response[type].slice(0, MAX_RECIPES);
       setResultSearch(result);
     }
-    // if (response[type].length > 1) {
-    // }
   };
 
   const handleClick = () => {
-    setIsFiltering(true);
     if (chosenRadio === 'search.php?f=' && searchInput.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     } else {
