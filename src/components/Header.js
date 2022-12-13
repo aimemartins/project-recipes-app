@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { MDBContainer, MDBBtn } from 'mdb-react-ui-kit';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import '../styles/Header.css';
 
 function Header({ title }) {
   const [search, setSearch] = useState(false);
@@ -44,8 +46,9 @@ function Header({ title }) {
   );
 
   return (
-    <div>
-      <button
+    <MDBContainer className="headerContainer">
+      <MDBBtn
+        className="profileBtn"
         type="button"
         onClick={ () => clickProfile() }
       >
@@ -54,18 +57,29 @@ function Header({ title }) {
           alt="profile-icon"
           data-testid="profile-top-btn"
         />
-      </button>
+      </MDBBtn>
 
       { searchBtn
-        ? <button type="button" onClick={ () => searchBool() }>{ btn }</button>
+        ? (
+          <MDBBtn
+            color="info"
+            type="button"
+            onClick={ () => searchBool() }
+          >
+            { btn }
+          </MDBBtn>)
         : '' }
 
       { search
         ? <SearchBar />
         : '' }
 
-      <h1 data-testid="page-title">{ title }</h1>
-    </div>
+      <h1
+        data-testid="page-title"
+      >
+        { title }
+      </h1>
+    </MDBContainer>
   );
 }
 

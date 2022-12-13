@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { MDBInput, MDBRadio, MDBBtnGroup, MDBBtn } from 'mdb-react-ui-kit';
 import RecipesAppContext from '../context/RecipesAppContext';
 import fetchAPI from '../services/API';
+import '../styles/Header.css';
 
 const MAX_RECIPES = 12;
 
@@ -64,64 +66,66 @@ export default function SearchBar() {
   return (
     <div className="SearchBar">
       <div>
-        <input
+        <MDBInput
+          className="searchImput"
+          label="search"
           type="text"
           name="search-input"
           value={ searchInput }
-          placeholder="Search"
+          // placeholder="Search"
           data-testid="search-input"
           onChange={ ({ target }) => setsearchInput(target.value) }
         />
       </div>
-      <div>
-        <label htmlFor="ingredient-search-radio">
-          <input
-            name="ingredient-search-radio"
-            type="radio"
-            id="ingredient-search-radio"
-            value="filter.php?i="
-            checked={ chosenRadio === 'filter.php?i=' }
-            onChange={ ({ target }) => setChosenRadio(target.value) }
-            data-testid="ingredient-search-radio"
-          />
-          Ingredient
-        </label>
+      <MDBBtnGroup className="searchRadios">
+        {/* <label htmlFor="ingredient-search-radio"> */}
+        <MDBRadio
+          name="ingredient-search-radio"
+          type="radio"
+          id="ingredient-search-radio"
+          value="filter.php?i="
+          checked={ chosenRadio === 'filter.php?i=' }
+          onChange={ ({ target }) => setChosenRadio(target.value) }
+          data-testid="ingredient-search-radio"
+        />
+        Ingredient
+        {/* </label> */}
 
-        <label htmlFor="name-search-radio">
-          <input
-            name="name-search-radio"
-            type="radio"
-            id="name-search-radio"
-            value="search.php?s="
-            checked={ chosenRadio === 'search.php?s=' }
-            onChange={ ({ target }) => setChosenRadio(target.value) }
-            data-testid="name-search-radio"
-          />
-          Name
-        </label>
+        {/* <label htmlFor="name-search-radio"> */}
+        <MDBRadio
+          name="name-search-radio"
+          type="radio"
+          id="name-search-radio"
+          value="search.php?s="
+          checked={ chosenRadio === 'search.php?s=' }
+          onChange={ ({ target }) => setChosenRadio(target.value) }
+          data-testid="name-search-radio"
+        />
+        Name
+        {/* </label> */}
 
-        <label htmlFor="first-letter-search-radio">
-          <input
-            name="first-letter-search-radio"
-            type="radio"
-            id="first-letter-search-radio"
-            value="search.php?f="
-            checked={ chosenRadio === 'search.php?f=' }
-            onChange={ ({ target }) => setChosenRadio(target.value) }
-            data-testid="first-letter-search-radio"
-          />
-          First letter
-        </label>
+        {/* <label htmlFor="first-letter-search-radio"> */}
+        <MDBRadio
+          name="first-letter-search-radio"
+          type="radio"
+          id="first-letter-search-radio"
+          value="search.php?f="
+          checked={ chosenRadio === 'search.php?f=' }
+          onChange={ ({ target }) => setChosenRadio(target.value) }
+          data-testid="first-letter-search-radio"
+        />
+        First letter
+        {/* </label> */}
         <div>
-          <button
+          <MDBBtn
             type="button"
             data-testid="exec-search-btn"
             onClick={ () => handleClick() }
           >
             SEARCH
-          </button>
+          </MDBBtn>
         </div>
-      </div>
+      </MDBBtnGroup>
     </div>
   );
 }
