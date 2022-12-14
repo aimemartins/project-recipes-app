@@ -116,16 +116,16 @@ export default function SearchBar() {
         />
         First letter
         {/* </label> */}
-        <div>
-          <MDBBtn
-            type="button"
-            data-testid="exec-search-btn"
-            onClick={ () => handleClick() }
-          >
-            SEARCH
-          </MDBBtn>
-        </div>
       </MDBBtnGroup>
+      <div>
+        <MDBBtn
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ () => handleClick() }
+        >
+          SEARCH
+        </MDBBtn>
+      </div>
     </div>
   );
 }

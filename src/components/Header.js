@@ -86,10 +86,6 @@ function Header({ title }) {
 
         </div>
 
-        { search
-          ? <SearchBar />
-          : '' }
-
       </div>
 
       <img
@@ -99,6 +95,9 @@ function Header({ title }) {
       />
 
       <h1 data-testid="page-title" className="title">{ title }</h1>
+      { search
+        ? <SearchBar />
+        : '' }
     </div>
   );
 }

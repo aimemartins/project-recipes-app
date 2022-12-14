@@ -15,10 +15,10 @@ import Header from './Header';
 
 const icons = [
   <GiMeat key={ 1 } />,
-  <GiGoat key={ 2 } />,
-  <GiChickenOven key={ 3 } />,
   <GiSlicedBread key={ 4 } />,
+  <GiChickenOven key={ 3 } />,
   <GiCakeSlice key={ 5 } />,
+  <GiGoat key={ 2 } />,
 ];
 
 function Meals() {
@@ -61,12 +61,13 @@ function Meals() {
   }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
-    if (isFiltering) {
-      setIsFiltering(false);
-    } else {
-      setIsFiltering(true);
-      setCurrentCategory(target.value);
-    }
+    // if (isFiltering) {
+    //   setIsFiltering(false);
+    // } else {
+    setIsFiltering(true);
+    // console.log(target);
+    setCurrentCategory(target.parentNode.parentNode.value);
+    // }
   };
   return (
     <div className="container-recipes">

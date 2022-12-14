@@ -55,3 +55,11 @@
   color: #41197f;
   margin-top: 3%;
 }
+
+.SearchBar {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
