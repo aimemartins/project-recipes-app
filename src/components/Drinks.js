@@ -56,12 +56,12 @@ function Drinks() {
     getDrinksByCategory(currentCategory);
   }, [currentCategory, setRecipesByCategory]);
 
-  const handleClick = ({ target }) => {
+  const handleClick = (category) => {
     if (isFiltering) {
       setIsFiltering(false);
     } else {
       setIsFiltering(true);
-      setCurrentCategory(target.value);
+      setCurrentCategory(category);
     }
   };
 
@@ -86,7 +86,7 @@ function Drinks() {
               key={ category.strCategory }
               value={ category.strCategory }
               data-testid={ `${category.strCategory}-category-filter` }
-              onClick={ handleClick }
+              onClick={ () => handleClick(category.strCategory) }
             >
               {icons[index]}
 

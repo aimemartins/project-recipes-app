@@ -60,14 +60,14 @@ function Meals() {
     getMealsByCategory(currentCategory);
   }, [currentCategory, setRecipesByCategory]);
 
-  const handleClick = ({ target }) => {
-    // if (isFiltering) {
-    //   setIsFiltering(false);
-    // } else {
-    setIsFiltering(true);
-    // console.log(target);
-    setCurrentCategory(target.parentNode.parentNode.value);
-    // }
+  const handleClick = (category) => {
+    if (isFiltering && currentCategory === category) {
+      setIsFiltering(false);
+    } else {
+      setIsFiltering(true);
+      // console.log(target);
+      setCurrentCategory(category);
+    }
   };
   return (
     <div className="container-recipes">
@@ -90,7 +90,7 @@ function Meals() {
               key={ category.strCategory }
               value={ category.strCategory }
               data-testid={ `${category.strCategory}-category-filter` }
-              onClick={ handleClick }
+              onClick={ () => handleClick(category.strCategory) }
             >
               {icons[index]}
 

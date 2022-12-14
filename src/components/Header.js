@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 // import { MDBContainer, MDBBtn } from 'mdb-react-ui-kit';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { GiHotMeal } from 'react-icons/gi';
+import { BsBookmarkHeart } from 'react-icons/bs';
 import DrinkIcon from '../images/drinkIcon.svg';
 import MealIcon from '../images/mealIcon.svg';
 import Group4 from '../images/Group4.png';
@@ -13,6 +15,7 @@ import '../styles/Header.css';
 function Header({ title }) {
   const [search, setSearch] = useState(false);
   const [searchBtn, setSearchBtn] = useState(true);
+  const [icon, setIcon] = useState('');
   const history = useHistory();
 
   const searchBool = () => {
@@ -22,6 +25,40 @@ function Header({ title }) {
       setSearch(false);
     }
   };
+
+  useLayoutEffect(() => {
+    const { location: { pathname } } = history;
+    switch (pathname) {
+    case '/meals':
+      setIcon(<img
+        className="type"
+        src={ MealIcon }
+        alt="type"
+      />);
+      break;
+    case '/drinks':
+      setIcon(<img
+        className="type"
+        src={ DrinkIcon }
+        alt="type"
+      />);
+      break;
+    case '/done-recipes':
+      setIcon(<GiHotMeal />);
+      break;
+    case '/favorite-recipes':
+      setIcon(<BsBookmarkHeart />);
+      break;
+    default:
+      setIcon(
+        <img
+          className="type"
+          src={ ProfileIcon }
+          alt="type"
+        />,
+      );
+    }
+  }, []);
 
   const searchBtnBool = () => {
     const { location: { pathname } } = history;
@@ -87,12 +124,10 @@ function Header({ title }) {
         </div>
 
       </div>
+      <div className="header-icon-container">
+        {icon}
 
-      <img
-        className="type"
-        src={ history.location.pathname === '/meals' ? MealIcon : DrinkIcon }
-        alt="type"
-      />
+      </div>
 
       <h1 data-testid="page-title" className="title">{ title }</h1>
       { search

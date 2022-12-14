@@ -48,7 +48,8 @@
 .type {
   filter: invert(77%) sepia(43%) saturate(699%)
     hue-rotate(351deg) brightness(97%) contrast(104%);
-  margin-top: 15px;
+
+  /* margin-top: 15px; */
 }
 
 .title {
@@ -62,4 +63,9 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
+}
+
+.header-icon-container {
+  font-size: 40px;
+  height: fit-content;
 }
