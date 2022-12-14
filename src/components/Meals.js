@@ -43,7 +43,7 @@ function Meals() {
   }, [currentCategory, setRecipesByCategory]);
 
   const handleClick = ({ target }) => {
-    if (isFiltering) {
+    if (isFiltering && target.value === currentCategory) {
       setIsFiltering(false);
     } else {
       setIsFiltering(true);
