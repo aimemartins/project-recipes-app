@@ -2,9 +2,20 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { FaGlassMartiniAlt } from 'react-icons/fa';
+import { FaGlassMartiniAlt, FaWineGlassAlt, FaCocktail } from 'react-icons/fa';
+import { TbCup } from 'react-icons/tb';
+import { CiBeerMugFull } from 'react-icons/ci';
+import { GiCoffeeCup } from 'react-icons/gi';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
+
+const icons = [
+  <FaWineGlassAlt key={ 1 } />,
+  <FaCocktail key={ 2 } />,
+  <TbCup key={ 3 } />,
+  <CiBeerMugFull key={ 4 } />,
+  <GiCoffeeCup key={ 5 } />,
+];
 
 function Drinks() {
   const {
@@ -56,8 +67,8 @@ function Drinks() {
 
   return (
     <div className="container-recipes">
-      {/* <Header title="Drinks" /> */}
-      <div>
+      <Header title="Drinks" />
+      <div className="buttons">
         <button
           type="button"
           data-testid="All-category-filter"
@@ -69,7 +80,7 @@ function Drinks() {
           <FaGlassMartiniAlt />
         </button>
         {drinkCategories
-          .map((category) => (
+          .map((category, index) => (
             <button
               type="button"
               key={ category.strCategory }
@@ -77,7 +88,7 @@ function Drinks() {
               data-testid={ `${category.strCategory}-category-filter` }
               onClick={ handleClick }
             >
-              {category.strCategory}
+              {icons[index]}
 
             </button>
           ))}

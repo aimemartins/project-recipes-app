@@ -70,7 +70,7 @@ function Meals() {
   };
   return (
     <div className="container-recipes">
-      {/* <Header title="Meals" /> */}
+      <Header title="Meals" />
       <div className="buttons">
         <button
           type="button"

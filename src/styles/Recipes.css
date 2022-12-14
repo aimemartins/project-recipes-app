@@ -53,14 +53,19 @@ div[ class ^= 'col-' ] {
 .buttons {
   display: flex;
   justify-content: space-around;
-  width: 80%;
+  width: 90%;
 }
 
 .buttons button {
+  align-items: center;
   background: transparent;
-  border: none;
+  border: 5px double black;
+  border-radius: 50%;
   cursor: pointer;
+  display: flex;
   font-size: 2rem;
+  justify-content: center;
+  padding: 5px;
 }
 
 .buttons button:hover {
