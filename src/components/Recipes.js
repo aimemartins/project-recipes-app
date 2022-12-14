@@ -4,6 +4,7 @@ import Meals from './Meals';
 import Drinks from './Drinks';
 import Footer from './Footer';
 import RecipesAppContext from '../context/RecipesAppContext';
+import '../styles/Recipes.css';
 
 export default function Recipes() {
   const MAX_RECIPES = 12;

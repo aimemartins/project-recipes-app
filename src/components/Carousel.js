@@ -38,7 +38,7 @@ function Carousel({ recommend, category }) {
   }, [handleLeftConstraint]);
 
   return (
-    <div className="container">
+    <div className="container-carousel">
       <motion.div
         ref={ carousel }
         className="carousel"
