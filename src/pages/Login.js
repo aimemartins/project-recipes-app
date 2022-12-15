@@ -41,7 +41,7 @@ function Login() {
         <div className="text-center">
           <img
             src={ bg }
-            style={ { width: '100%', height: '100px' } }
+            style={ { width: '100%', height: '100px', marginBottom: '2rem' } }
             alt="logo"
           />
         </div>
