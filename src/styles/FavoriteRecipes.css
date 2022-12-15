@@ -6,6 +6,7 @@
 .fav-btns-container button {
   background-color: #748332;
   border: none;
+  color: white;
   height: 30px;
   width: 70px;
 }

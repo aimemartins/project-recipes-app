@@ -1,5 +1,6 @@
 .profile-container {
   align-items: center;
+  background-color: #faf6ed;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -10,6 +11,11 @@
 .profile-container p {
   font-size: 1.2rem;
   font-weight: 700;
+}
+
+.profile {
+  background-color: #faf6ed;
+  height: 100vh;
 }
 
 .profile-btn-container {

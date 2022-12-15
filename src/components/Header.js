@@ -6,7 +6,7 @@ import { GiHotMeal } from 'react-icons/gi';
 import { BsBookmarkHeart } from 'react-icons/bs';
 import DrinkIcon from '../images/drinkIcon.svg';
 import MealIcon from '../images/mealIcon.svg';
-import Group4 from '../images/Group4.png';
+import bg from '../images/app-logo-laranja-final.png';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -96,11 +96,7 @@ function Header({ title }) {
     <div className="header">
       <div className="btns">
         <div className="container-icons">
-          <img src={ Group4 } alt="icon" />
-          <p className="text-icon">
-            RECIPE
-            <strong>app</strong>
-          </p>
+          <img src={ bg } alt="icon" style={ { height: '52px', width: '100px' } } />
         </div>
 
         <div className="container-buttons">

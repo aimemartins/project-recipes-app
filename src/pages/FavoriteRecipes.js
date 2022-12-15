@@ -33,7 +33,7 @@ function FavoriteRecipes() {
     setFilterRecipes(favoriteRecipes);
   }, []);
   return (
-    <div>
+    <div style={ { background: '#faf6ed', height: '100vh' } }>
       <Header title="Favorite Recipes" />
       <div className="fav-btns-container">
         <button

@@ -1,5 +1,6 @@
 .login-container {
   align-items: center;
+  background-color: #faf6ed;
   display: flex;
   justify-content: center;
   min-height: 100vh;

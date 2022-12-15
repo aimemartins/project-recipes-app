@@ -28,7 +28,7 @@ function DoneRecipes() {
   }, []);
 
   return (
-    <div>
+    <div style={ { background: '#faf6ed', height: '100vh' } }>
       <Header title="Done Recipes" />
       {/* <button
         type="button"
@@ -70,7 +70,7 @@ function DoneRecipes() {
           <Button
             data-testid="filter-by-all-btn"
             onClick={ () => setFilterRecipes(recipes) }
-            style={ { backgroundColor: 'rgb(81, 21, 23)' } }
+            style={ { backgroundColor: '#748332' } }
           >
             All
 
@@ -81,7 +81,7 @@ function DoneRecipes() {
               setFilterRecipes(recipes
                 .filter(({ type }) => type === 'meal'));
             } }
-            style={ { backgroundColor: 'rgb(81, 21, 23)' } }
+            style={ { backgroundColor: '#748332' } }
           >
             Meals
 
@@ -92,7 +92,7 @@ function DoneRecipes() {
               setFilterRecipes(recipes
                 .filter(({ type }) => type === 'drink'));
             } }
-            style={ { backgroundColor: 'rgb(81, 21, 23)' } }
+            style={ { backgroundColor: '#748332' } }
           >
             Drinks
 

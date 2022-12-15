@@ -7,7 +7,7 @@
 
 .btns {
   align-items: center;
-  background: #fcdc36;
+  background: #bb5815;
   background-image: none;
   display: flex;
   height: 52px;
@@ -18,19 +18,18 @@
 .container-buttons {
   display: flex;
   justify-content: space-between;
+  margin-right: 1.5rem;
   width: 70px;
-
 }
 
 .header button img {
-  filter: invert(10%) sepia(90%)
-    saturate(3503%) hue-rotate(261deg) brightness(88%) contrast(98%);
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(103deg) brightness(97%) contrast(103%);
 }
 
 
 .buttons-header {
   align-items: center;
-  background: #fcdc36;
+  background: #bb5815;
   border: none;
 }
 
@@ -53,19 +52,45 @@
 }
 
 .title {
-  color: #41197f;
-  margin-top: 3%;
+  background-color: #faf6ed;
+  color: #748332;
+  margin: none;
+  text-align: center;
+  width: 93.5%;
+}
+
+h1 {
+  margin: none;
 }
 
 .SearchBar {
   align-items: center;
+  background-color: #faf6ed;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 93.5%;
 }
 
 .header-icon-container {
+  background-color: #faf6ed;
+  color: #000;
+  display: flex;
   font-size: 40px;
   height: fit-content;
+  justify-content: center;
+  padding-top: 1rem;
+  width: 93.5%;
+}
+
+.header-icon-container img {
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(103deg) brightness(97%) contrast(103%);
+}
+
+.btn-primary {
+  background-color: #748332;
+}
+
+.btn-group, .form-check-input {
+  background-color: #faf6ed;
 }

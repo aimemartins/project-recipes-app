@@ -8,6 +8,7 @@ import {
   // MDBIcon
 }
   from 'mdb-react-ui-kit';
+import bg from '../images/app-logo-white .png';
 import '../styles/Login.css';
 
 function Login() {
@@ -39,11 +40,10 @@ function Login() {
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
         <div className="text-center">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrEfSbsoSFlrH3Z-tFNVgALpLZVRSnoqqdJA&usqp=CAU"
-            style={ { width: '190px' } }
+            src={ bg }
+            style={ { width: '100%', height: '100px' } }
             alt="logo"
           />
-          <h4 className="mt-1 mb-5 pb-1">App de Receitas</h4>
         </div>
         <div className="email-login">
           <MDBInput
