@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import FavoriteCard from '../components/FavoriteCard';
+import '../styles/FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const [favRecipes, setFavRecipes] = useState([]);
@@ -34,33 +35,35 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header title="Favorite Recipes" />
-      <button
-        type="submit"
-        data-testid="filter-by-all-btn"
-        onClick={ () => setFilterRecipes(favRecipes) }
-      >
-        All
-      </button>
-      <button
-        type="submit"
-        data-testid="filter-by-meal-btn"
-        onClick={ () => {
-          setFilterRecipes(favRecipes
-            .filter(({ type }) => type === 'meal'));
-        } }
-      >
-        Meals
-      </button>
-      <button
-        type="submit"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => {
-          setFilterRecipes(favRecipes
-            .filter(({ type }) => type === 'drink'));
-        } }
-      >
-        Drinks
-      </button>
+      <div className="fav-btns-container">
+        <button
+          type="submit"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilterRecipes(favRecipes) }
+        >
+          All
+        </button>
+        <button
+          type="submit"
+          data-testid="filter-by-meal-btn"
+          onClick={ () => {
+            setFilterRecipes(favRecipes
+              .filter(({ type }) => type === 'meal'));
+          } }
+        >
+          Meals
+        </button>
+        <button
+          type="submit"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => {
+            setFilterRecipes(favRecipes
+              .filter(({ type }) => type === 'drink'));
+          } }
+        >
+          Drinks
+        </button>
+      </div>
       <FavoriteCard recipes={ filterRecipes } setFavRecipes={ setFilterRecipes } />
     </div>
   );

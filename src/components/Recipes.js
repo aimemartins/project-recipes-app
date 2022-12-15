@@ -37,11 +37,11 @@ export default function Recipes() {
   }, [setMealList]);
 
   return (
-    <>
+    <div className="recipes-container">
       { location.pathname === '/drinks'
         ? <Drinks />
         : <Meals />}
       <Footer />
-    </>
+    </div>
   );
 }

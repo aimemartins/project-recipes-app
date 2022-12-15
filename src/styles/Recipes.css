@@ -33,7 +33,7 @@
 
 .container {
   margin: 0;
-  margin-bottom: 52px;
+  margin-bottom: 60px;
   margin-top: 1rem;
 }
 
@@ -71,3 +71,7 @@ div[ class ^= 'col-' ] {
 .buttons button:hover {
   opacity: 0.6;
 }
+
+/* .recipes-container {
+  background-color: #bb5815;
+} */
