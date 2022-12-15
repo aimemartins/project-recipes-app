@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Header from '../components/Header';
 import RecipesList from '../components/RecipesList';
 
@@ -27,7 +30,7 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" />
-      <button
+      {/* <button
         type="button"
         data-testid="filter-by-all-btn"
         onClick={ () => setFilterRecipes(recipes) }
@@ -54,7 +57,48 @@ function DoneRecipes() {
         } }
       >
         Drinks
-      </button>
+      </button> */}
+      <ButtonToolbar
+        aria-label="Toolbar with button groups"
+        style={ {
+          margin: '10%',
+          paddingLeft: '5%',
+          borderBottom: '10%',
+        } }
+      >
+        <ButtonGroup className="me-2" aria-label="Second group">
+          <Button
+            data-testid="filter-by-all-btn"
+            onClick={ () => setFilterRecipes(recipes) }
+            style={ { backgroundColor: 'rgb(81, 21, 23)' } }
+          >
+            All
+
+          </Button>
+          <Button
+            data-testid="filter-by-meal-btn"
+            onClick={ () => {
+              setFilterRecipes(recipes
+                .filter(({ type }) => type === 'meal'));
+            } }
+            style={ { backgroundColor: 'rgb(81, 21, 23)' } }
+          >
+            Meals
+
+          </Button>
+          <Button
+            data-testid="filter-by-drink-btn"
+            onClick={ () => {
+              setFilterRecipes(recipes
+                .filter(({ type }) => type === 'drink'));
+            } }
+            style={ { backgroundColor: 'rgb(81, 21, 23)' } }
+          >
+            Drinks
+
+          </Button>
+        </ButtonGroup>
+      </ButtonToolbar>
       <RecipesList recipes={ filterRecipes } />
     </div>
   );
