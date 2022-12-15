@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 import ShareIcon from '../images/shareIcon.svg';
 
@@ -18,8 +20,15 @@ function RecipeCard({ recipe, index }) {
     }
   }, [clicked]);
   return (
-    <div>
-      <Link to={ `${recipe.type}s/${recipe.id}` }>
+    <div
+      style={ {
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+        margin: '10%',
+      } }
+    >
+      {/* <Link to={ `${recipe.type}s/${recipe.id}` }>
         <img
           style={ { width: '40px', height: '40px' } }
           src={ recipe.image }
@@ -54,7 +63,67 @@ function RecipeCard({ recipe, index }) {
           {tag}
 
         </p>
-      ))}
+      ))} */}
+      <Card
+        style={ {
+          width: '18rem',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+        } }
+      >
+        <Link
+          to={ `${recipe.type}s/${recipe.id}` }
+          style={ { height: '250px', width: '100%' } }
+        >
+          <Card.Img
+            variant="top"
+            src={ recipe.image }
+            data-testid={ `${index}-horizontal-image` }
+            alt={ recipe.image }
+          />
+          <Card.Title
+            data-testid={ `${index}-horizontal-name` }
+            style={ { color: 'rgb(81, 21, 23)', fontFamily: ['Arial'] } }
+          >
+            {recipe.name}
+
+          </Card.Title>
+        </Link>
+        <Card.Body>
+          <Card.Text>
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {recipe.nationality !== '' ? `${recipe.nationality} - ${recipe.category}`
+                : `${recipe.alcoholicOrNot} - ${recipe.category}`}
+
+            </p>
+            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
+            {recipe.tags.map((tag) => (
+              <p
+                key={ `${tag}-${index}` }
+                data-testid={ `${index}-${tag}-horizontal-tag` }
+              >
+                {tag}
+
+              </p>
+            ))}
+          </Card.Text>
+          <Button
+            variant="primary"
+            onClick={ () => handleClick() }
+            style={ { backgroundColor: 'rgb(187, 88, 21)' } }
+          >
+            {clicked ? 'Link copied!' : <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ ShareIcon }
+              alt="share icon"
+            />}
+
+          </Button>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
