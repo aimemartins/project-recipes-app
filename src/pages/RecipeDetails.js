@@ -28,7 +28,6 @@ function RecipeDetails() {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idRecipe}`;
       const response = await fetch(endpoint);
       const result = await response.json();
-      // console.log(result);
       await setRecipe(result);
     };
 
@@ -37,7 +36,8 @@ function RecipeDetails() {
       const fetchTheMeal = await fetch(endpoint);
       const meals = await fetchTheMeal.json();
       const maxMeals = meals.meals.length <= maxRecommendation
-        ? meals.meals : meals.meals.slice(0, maxRecommendation);
+        ? meals.meals
+        : meals.meals.slice(0, maxRecommendation);
       await setRecommend(maxMeals);
     };
 
@@ -46,7 +46,8 @@ function RecipeDetails() {
       const fetchTheDrink = await fetch(endpoint);
       const drinks = await fetchTheDrink.json();
       const maxDrinks = drinks.drinks.length <= maxRecommendation
-        ? drinks.drinks : drinks.drinks.slice(0, maxRecommendation);
+        ? drinks.drinks
+        : drinks.drinks.slice(0, maxRecommendation);
       await setRecommend(maxDrinks);
     };
 
@@ -61,18 +62,21 @@ function RecipeDetails() {
 
   useEffect(() => {
     if (localStorage.getItem('inProgressRecipes') === null) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(
-        {
+      localStorage.setItem(
+        'inProgressRecipes',
+        JSON.stringify({
           drinks: {
             178319: [],
           },
           meals: {
             52771: [],
           },
-        },
-      ));
+        }),
+      );
     }
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgressRecipes = JSON.parse(
+      localStorage.getItem('inProgressRecipes'),
+    );
     setProgress(inProgressRecipes);
     setInProgress(Object.keys(inProgressRecipes[type]).includes(id));
   }, []);
@@ -89,15 +93,19 @@ function RecipeDetails() {
     return (
       <>
         <img
-          src={ type === 'meals'
-            ? recipe.meals[0].strMealThumb
-            : recipe.drinks[0].strDrinkThumb }
+          src={
+            type === 'meals'
+              ? recipe.meals[0].strMealThumb
+              : recipe.drinks[0].strDrinkThumb
+          }
           alt="recipe"
           width="50px"
           data-testid="recipe-photo"
         />
         <h1 data-testid="recipe-title">
-          {type === 'meals' ? recipe.meals[0].strMeal : recipe.drinks[0].strDrink}
+          {type === 'meals'
+            ? recipe.meals[0].strMeal
+            : recipe.drinks[0].strDrink}
         </h1>
         <h3 data-testid="recipe-category">
           {recipe[type][0].strCategory}
@@ -106,18 +114,21 @@ function RecipeDetails() {
         </h3>
         <ul>
           {ingredients.map((i, index) => (
-            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
               {recipe[type][0][i]}
               {' '}
               {recipe[type][0][measures[index]]}
             </li>
           ))}
         </ul>
-        <p data-testid="instructions">
-          {recipe[type][0].strInstructions}
-        </p>
+        <p data-testid="instructions">{recipe[type][0].strInstructions}</p>
         {type === 'meals' ? video : ''}
-        {recommend.length !== 0 && <Carousel recommend={ recommend } category={ type } />}
+        {recommend.length !== 0 && (
+          <Carousel recommend={ recommend } category={ type } />
+        )}
         <ShareButton type={ type } id={ id } />
         <FavoriteButton recipe={ recipe } id={ id } type={ type } />
         <button
