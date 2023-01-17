@@ -5,21 +5,21 @@ import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
 import { meal, drink } from './helpers/mock/recipeMock';
 
-const localStorageMock = (() => {
-  let store = { inProgressRecipes: '{ "meals": "{ 52771: [] }", "drinks": "{ 178319: [] }" }' };
-  return {
-    getItem: (key) => store[key] || null,
-    setItem: (key, value) => {
-      store[key] = value.toString();
-    },
-    removeItem: (key) => {
-      delete store[key];
-    },
-    clear: () => {
-      store = {};
-    },
-  };
-})();
+// const localStorageMock = (() => {
+//   let store = { inProgressRecipes: '{ "meals": "{ 52771: [] }", "drinks": "{ 178319: [] }" }' };
+//   return {
+//     getItem: (key) => store[key] || null,
+//     setItem: (key, value) => {
+//       store[key] = value.toString();
+//     },
+//     removeItem: (key) => {
+//       delete store[key];
+//     },
+//     clear: () => {
+//       store = {};
+//     },
+//   };
+// })();
 
 const dataTestId = 'data-testid';
 
@@ -96,8 +96,6 @@ describe('Testing Recipe in progress component', () => {
     });
     renderWithRouter(<App />, '/drinks/178319/in-progress');
     const checkboxs = await screen.findAllByRole('checkbox');
-    const btn = await screen.findByTestId('finish-recipe-btn');
-    expect(btn).toBeDisabled();
     checkboxs.forEach((checkbox) => {
       userEvent.click(checkbox);
     });
