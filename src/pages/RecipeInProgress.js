@@ -6,10 +6,30 @@ import ShareButton from '../components/ShareButton';
 
 function RecipeInProgress() {
   const [recipe, setRecipe] = useState('');
+  const [inProgress, setInProgress] = useState('');
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const history = useHistory();
   const arrLoc = history.location.pathname.split('/');
   const type = arrLoc[1];
   const { id } = useParams();
+  useEffect(() => {
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      localStorage.setItem(
+        'inProgressRecipes',
+        JSON.stringify({
+          drinks: {
+            178319: [],
+          },
+          meals: {
+            52771: [],
+          },
+        }),
+      );
+    }
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setInProgress(inProgressRecipes);
+  }, []);
+
   useEffect(() => {
     const getDrink = async (idRecipe) => {
       const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`;
@@ -33,8 +53,36 @@ function RecipeInProgress() {
   }, []);
   if (recipe === '') return null;
   const keys = Object.keys(recipe[type][0]);
-  const ingredients = keys.filter((key) => key.includes('Ingredient'));
-  console.log(recipe);
+  const ingredients = keys.filter((key) => key.includes('Ingredient'))
+    .filter((ingredient) => recipe[type][0][ingredient] !== null
+  && recipe[type][0][ingredient] !== '');
+  const handleCheckBox = (ingredient, check) => {
+    if (check) {
+      let newProgress = inProgress;
+      newProgress = {
+        ...inProgress,
+        [type]: {
+          ...inProgress[type], [id]: [...inProgress[type][id], ingredient],
+        },
+      };
+      setInProgress(newProgress);
+      setIsBtnDisabled(newProgress[type][id].length === ingredients.length);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress));
+    } else {
+      let newProgress = inProgress;
+      newProgress = {
+        ...inProgress,
+        [type]: {
+          ...inProgress[type],
+          [id]: [...inProgress[type][id]
+            .filter((el) => el !== ingredient)],
+        },
+      };
+      setInProgress(newProgress);
+      setIsBtnDisabled(newProgress[type][id].length === ingredients.length);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress));
+    }
+  };
   return (
     <>
       <img
@@ -60,16 +108,21 @@ function RecipeInProgress() {
       <FavoriteButton recipe={ recipe } id={ id } type={ type } />
       <ul>
         {ingredients
-          .filter((ingredient) => recipe[type][0][ingredient] !== null
-          && recipe[type][0][ingredient] !== '')
           .map((i, index) => (
-            <CheckBox key={ index } index={ index } ingredient={ recipe[type][0][i] } />
+            <CheckBox
+              key={ index }
+              index={ index }
+              ingredient={ recipe[type][0][i] }
+              handleCheckBox={ handleCheckBox }
+              isChecked={ inProgress[type][id].includes(recipe[type][0][i]) }
+            />
           ))}
       </ul>
       <button
         type="button"
         data-testid="finish-recipe-btn"
         onClick={ () => history.push('/done-recipes') }
+        disabled={ !isBtnDisabled }
       >
         Finish recipe
       </button>

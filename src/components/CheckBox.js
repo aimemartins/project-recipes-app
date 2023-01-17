@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function CheckBox({ ingredient, index }) {
+function CheckBox({ ingredient, index, handleCheckBox, isChecked }) {
   const [checked, setChecked] = useState(false);
+  useEffect(() => {
+    setChecked(isChecked);
+  }, []);
   return (
     <div>
       <label
@@ -17,7 +20,10 @@ function CheckBox({ ingredient, index }) {
           name=""
           id={ `${index}-ingredient-step` }
           checked={ checked }
-          onChange={ () => setChecked((prev) => !prev) }
+          onChange={ () => {
+            setChecked((prev) => !prev);
+            handleCheckBox(ingredient, !checked);
+          } }
         />
         {' '}
         {ingredient}
@@ -29,6 +35,8 @@ function CheckBox({ ingredient, index }) {
 CheckBox.propTypes = {
   ingredient: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  handleCheckBox: PropTypes.func.isRequired,
+  isChecked: PropTypes.bool.isRequired,
 };
 
 export default CheckBox;

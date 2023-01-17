@@ -5,9 +5,33 @@ import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
 import { meal, drink } from './helpers/mock/recipeMock';
 
+const localStorageMock = (() => {
+  let store = { inProgressRecipes: '{ "meals": "{ 52771: [] }", "drinks": "{ 178319: [] }" }' };
+  return {
+    getItem: (key) => store[key] || null,
+    setItem: (key, value) => {
+      store[key] = value.toString();
+    },
+    removeItem: (key) => {
+      delete store[key];
+    },
+    clear: () => {
+      store = {};
+    },
+  };
+})();
+
 const dataTestId = 'data-testid';
 
 describe('Testing Recipe in progress component', () => {
+  // beforeEach(() => {
+  //   Object.defineProperty(window, 'localStorage', {
+  //     value: localStorageMock,
+  //   });
+  // });
+  // afterEach(() => {
+  //   window.localStorage.clear();
+  // });
   it('Testing a meal progress page', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
@@ -64,5 +88,19 @@ describe('Testing Recipe in progress component', () => {
     userEvent.click(btn);
     const url = history.location.pathname;
     expect(url).toBe('/done-recipes');
+  });
+  it('Testing if the button is disable ', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(drink),
+    });
+    renderWithRouter(<App />, '/drinks/178319/in-progress');
+    const checkboxs = await screen.findAllByRole('checkbox');
+    const btn = await screen.findByTestId('finish-recipe-btn');
+    expect(btn).toBeDisabled();
+    checkboxs.forEach((checkbox) => {
+      userEvent.click(checkbox);
+    });
+    userEvent.click(checkboxs[0]);
   });
 });
