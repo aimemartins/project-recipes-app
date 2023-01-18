@@ -26,6 +26,9 @@ function RecipeInProgress() {
         }),
       );
     }
+    if (localStorage.getItem('doneRecipes') === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     setInProgress(inProgressRecipes);
   }, []);
@@ -83,6 +86,29 @@ function RecipeInProgress() {
       localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress));
     }
   };
+  const handleFinish = () => {
+    const foodType = type === 'meals' ? 'Meal' : 'Drink';
+    const tag = recipe[type][0].strTags === null ? [] : recipe[type][0].strTags;
+    const date = new Date();
+    const newRecipe = {
+      id,
+      type: type.split('s')[0],
+      nationality: recipe[type][0].strArea === undefined ? '' : recipe[type][0].strArea,
+      category: recipe[type][0].strCategory,
+      alcoholicOrNot: recipe[type][0].strAlcoholic === undefined ? ''
+        : recipe[type][0].strAlcoholic,
+      name: recipe[type][0][`str${foodType}`],
+      image: recipe[type][0][`str${foodType}Thumb`],
+      // doneDate: date.toLocaleDateString(),
+      doneDate: date.toISOString(),
+      tags: tag.includes(',')
+        ? [...tag.split(',')] : [...tag],
+    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const newDone = [...doneRecipes, newRecipe];
+    localStorage.setItem('doneRecipes', JSON.stringify(newDone));
+    history.push('/done-recipes');
+  };
   return (
     <>
       <img
@@ -121,7 +147,8 @@ function RecipeInProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
-        onClick={ () => history.push('/done-recipes') }
+        // onClick={ () => history.push('/done-recipes') }
+        onClick={ handleFinish }
         disabled={ !isBtnDisabled }
       >
         Finish recipe
