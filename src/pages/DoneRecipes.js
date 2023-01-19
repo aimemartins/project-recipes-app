@@ -7,17 +7,7 @@ function DoneRecipes() {
   const [filterRecipes, setFilterRecipes] = useState([]);
   useEffect(() => {
     if (localStorage.getItem('doneRecipes') === null) {
-      localStorage.setItem('doneRecipes', JSON.stringify([{
-        id: '52771',
-        type: 'meal',
-        nationality: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        doneDate: '23/06/2020',
-        tags: ['Pasta', 'Curry'],
-      }]));
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
     }
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     setRecipes(doneRecipes);
