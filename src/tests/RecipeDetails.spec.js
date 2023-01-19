@@ -60,6 +60,15 @@ describe('Testing Recipe Details component', () => {
     expect(recommendation).toBeInTheDocument();
     const btn = await screen.findByTestId('start-recipe-btn');
     expect(btn).toHaveTextContent('Start recipe');
+    const btns = await screen.findAllByRole('button');
+    userEvent.click(btns[1]);
+    userEvent.click(btns[0]);
+    expect(btns[0].innerHTML).toBe('Link copied!');
+    await new Promise((test) => {
+      setTimeout(test, 4000);
+    });
+    expect(btns[0].innerHTML).not.toBe('Link copied!');
+    userEvent.click(btns[1]);
     userEvent.click(btn);
   });
   it('Testing a drink detail page ', async () => {

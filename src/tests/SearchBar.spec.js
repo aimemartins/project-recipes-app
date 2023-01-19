@@ -38,7 +38,9 @@ describe('Testa o componente SearchBar da aplicação App de Receitas ', () => {
     const recipesNames = rice.meals.map((recipes) => recipes.strMeal);
     const { history } = renderWithRouterAndContext(<App />);
     act(() => { history.push('/meals'); });
-
+    const beef = await screen.findByTestId('Beef-category-filter');
+    userEvent.click(beef);
+    userEvent.click(beef);
     const unlockSearchBarBtn = screen.getByTestId(searchTopBtn);
     userEvent.click(unlockSearchBarBtn);
 

@@ -24,11 +24,18 @@ import { meal, drink } from './helpers/mock/recipeMock';
 const dataTestId = 'data-testid';
 
 describe('Testing Recipe in progress component', () => {
-  // beforeEach(() => {
-  //   Object.defineProperty(window, 'localStorage', {
-  //     value: localStorageMock,
-  //   });
+  beforeEach(() => {
+  // Object.defineProperty(window, 'localStorage', {
+  //   value: localStorageMock,
   // });
+    jest.mock('clipboard-copy');
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: () => {},
+      },
+    });
+    jest.spyOn(navigator.clipboard, 'writeText');
+  });
   // afterEach(() => {
   //   window.localStorage.clear();
   // });
@@ -67,6 +74,7 @@ describe('Testing Recipe in progress component', () => {
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(drink),
     });
+    document.execCommand = jest.fn();
     const { history } = renderWithRouter(<App />, '/drinks/178319/in-progress');
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=178319');
@@ -88,6 +96,9 @@ describe('Testing Recipe in progress component', () => {
     userEvent.click(btn);
     const url = history.location.pathname;
     expect(url).toBe('/done-recipes');
+    const btns = screen.getAllByRole('button');
+    userEvent.click(btns[4]);
+    expect(btns[4]).toHaveTextContent('Link copied!');
   });
   it('Testing if the button is disable ', async () => {
     jest.spyOn(global, 'fetch');
