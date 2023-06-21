@@ -5,29 +5,29 @@ import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
 import { meal, drink } from './helpers/mock/recipeMock';
 
-// const localStorageMock = (() => {
-//   let store = { inProgressRecipes: '{ "meals": "{ 52771: [] }", "drinks": "{ 178319: [] }" }' };
-//   return {
-//     getItem: (key) => store[key] || null,
-//     setItem: (key, value) => {
-//       store[key] = value.toString();
-//     },
-//     removeItem: (key) => {
-//       delete store[key];
-//     },
-//     clear: () => {
-//       store = {};
-//     },
-//   };
-// })();
+const localStorageMock = (() => {
+  let store = { inProgressRecipes: '{ "meals": "{ 52771: [] }", "drinks": "{ 178319: [] }" }' };
+  return {
+    getItem: (key) => store[key] || null,
+    setItem: (key, value) => {
+      store[key] = value.toString();
+    },
+    removeItem: (key) => {
+      delete store[key];
+    },
+    clear: () => {
+      store = {};
+    },
+  };
+})();
 
 const dataTestId = 'data-testid';
 
 describe('Testing Recipe in progress component', () => {
   beforeEach(() => {
-  // Object.defineProperty(window, 'localStorage', {
-  //   value: localStorageMock,
-  // });
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock,
+    });
     jest.mock('clipboard-copy');
     Object.assign(navigator, {
       clipboard: {
@@ -36,9 +36,9 @@ describe('Testing Recipe in progress component', () => {
     });
     jest.spyOn(navigator.clipboard, 'writeText');
   });
-  // afterEach(() => {
-  //   window.localStorage.clear();
-  // });
+  afterEach(() => {
+    window.localStorage.clear();
+  });
   it('Testing a meal progress page', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({

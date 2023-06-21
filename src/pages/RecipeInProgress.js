@@ -12,16 +12,33 @@ function RecipeInProgress() {
   const arrLoc = history.location.pathname.split('/');
   const type = arrLoc[1];
   const { id } = useParams();
+  console.log(id, type);
   useEffect(() => {
-    if (localStorage.getItem('inProgressRecipes') === null) {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    if (inProgressRecipes === null) {
       localStorage.setItem(
         'inProgressRecipes',
         JSON.stringify({
-          drinks: {
-            178319: [],
+          [type]: {
+            [id]: [],
           },
-          meals: {
-            52771: [],
+          // drinks: {
+          //   178319: [],
+          // },
+          // meals: {
+          //   52771: [],
+          // },
+        }),
+      );
+    } else if (!inProgressRecipes[type][id]) {
+      localStorage.setItem(
+        'inProgressRecipes',
+        JSON.stringify({
+          ...inProgressRecipes,
+          [type]: {
+            ...inProgressRecipes[type],
+            [id]: [],
           },
         }),
       );
@@ -29,8 +46,8 @@ function RecipeInProgress() {
     if (localStorage.getItem('doneRecipes') === null) {
       localStorage.setItem('doneRecipes', JSON.stringify([]));
     }
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    setInProgress(inProgressRecipes);
+    const updateInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setInProgress(updateInProgressRecipes);
   }, []);
 
   useEffect(() => {
