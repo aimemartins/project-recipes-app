@@ -61,16 +61,14 @@ function RecipeDetails() {
   }, []);
 
   useEffect(() => {
+    // const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    // console.log(inProgressRecipes, 'aqui');
     if (localStorage.getItem('inProgressRecipes') === null) {
       localStorage.setItem(
         'inProgressRecipes',
         JSON.stringify({
-          drinks: {
-            178319: [],
-          },
-          meals: {
-            52771: [],
-          },
+          drinks: {},
+          meals: {},
         }),
       );
     }
