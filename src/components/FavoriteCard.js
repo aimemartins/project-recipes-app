@@ -18,60 +18,68 @@ function FavoriteCard({ recipes, setFavRecipes }) {
   };
 
   return (
-    <div>
+    <div className="favcard-container">
       {recipes.map((element, index) => (
         <div
+          className="favcard"
           key={ element.id }
         >
           <Link to={ `${element.type}s/${element.id}` }>
-            <img
-              data-testid={ `${index}-horizontal-image` }
-              src={ element.image }
-              alt="mealImg"
-              style={ { width: '100px' } }
-            />
-            <p
-              data-testid={ `${index}-horizontal-name` }
-            >
-              {element.name}
-            </p>
-          </Link>
-          { element.alcoholicOrNot === ''
-            ? (
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {`${element.nationality} - ${element.category}`}
-              </p>
-            ) : (
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {element.alcoholicOrNot}
-              </p>
-            )}
-          <button
-            type="submit"
-            onClick={ () => shareBtn() }
-          >
-            { btnClick === true ? 'Link copied!'
-              : (
+            <div className="fav-card">
+              <div>
                 <img
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  src={ shareIcon }
-                  alt="shareImg"
-                />)}
-          </button>
-          <button
-            type="submit"
-            onClick={ () => deleteFav(element.id) }
-          >
-            <img
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              src={ blackHeartIcon }
-              alt="favImg"
-            />
-          </button>
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ element.image }
+                  alt="mealImg"
+                />
+              </div>
+              <div className="info-fav">
+                <p
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  {element.name}
+                </p>
+                { element.alcoholicOrNot === ''
+                  ? (
+                    <p
+                      data-testid={ `${index}-horizontal-top-text` }
+                    >
+                      {`${element.nationality} - ${element.category}`}
+                    </p>
+                  ) : (
+                    <p
+                      data-testid={ `${index}-horizontal-top-text` }
+                    >
+                      {element.alcoholicOrNot}
+                    </p>
+                  )}
+                <div className="fav-btns">
+                  <button
+                    type="submit"
+                    onClick={ () => shareBtn() }
+                  >
+                    { btnClick === true ? 'Link copied!'
+                      : (
+                        <img
+                          data-testid={ `${index}-horizontal-share-btn` }
+                          src={ shareIcon }
+                          alt="shareImg"
+                        />)}
+                  </button>
+                  <button
+                    type="submit"
+                    onClick={ () => deleteFav(element.id) }
+                  >
+                    <img
+                      data-testid={ `${index}-horizontal-favorite-btn` }
+                      src={ blackHeartIcon }
+                      alt="favImg"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Link>
         </div>
       ))}
     </div>

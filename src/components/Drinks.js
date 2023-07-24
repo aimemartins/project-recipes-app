@@ -1,7 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { FaGlassMartiniAlt, FaWineGlassAlt, FaCocktail } from 'react-icons/fa';
+import { TbCup } from 'react-icons/tb';
+import { CiBeerMugFull } from 'react-icons/ci';
+import { GiCoffeeCup } from 'react-icons/gi';
 import Header from './Header';
 import RecipesAppContext from '../context/RecipesAppContext';
+
+const icons = [
+  <FaWineGlassAlt key={ 1 } />,
+  <FaCocktail key={ 2 } />,
+  <TbCup key={ 3 } />,
+  <CiBeerMugFull key={ 4 } />,
+  <GiCoffeeCup key={ 5 } />,
+];
 
 function Drinks() {
   const {
@@ -42,94 +56,114 @@ function Drinks() {
     getDrinksByCategory(currentCategory);
   }, [currentCategory, setRecipesByCategory]);
 
-  const handleClick = ({ target }) => {
+  const handleClick = (category) => {
     if (isFiltering) {
       setIsFiltering(false);
     } else {
       setIsFiltering(true);
-      setCurrentCategory(target.value);
+      setCurrentCategory(category);
     }
   };
 
   return (
-    <div>
+    <div className="container-recipes">
       <Header title="Drinks" />
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ () => {
-          setIsFiltering(false);
-          setCurrentCategory('');
-        } }
-      >
-        All
-      </button>
-      {drinkCategories
-        .map((category) => (
-          <button
-            type="button"
-            key={ category.strCategory }
-            value={ category.strCategory }
-            data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ handleClick }
-          >
-            {category.strCategory}
+      <div className="buttons">
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => {
+            setIsFiltering(false);
+            setCurrentCategory('');
+          } }
+        >
+          <FaGlassMartiniAlt />
+        </button>
+        {drinkCategories
+          .map((category, index) => (
+            <button
+              type="button"
+              key={ category.strCategory }
+              value={ category.strCategory }
+              data-testid={ `${category.strCategory}-category-filter` }
+              onClick={ () => handleClick(category.strCategory) }
+            >
+              {icons[index]}
 
-          </button>
-        ))}
-      <section>
-        {!isFiltering
-          ? drinkList
-            .map((drink) => (
-              <Link
-                key={ drink.strDrink }
-                to={ `/drinks/${drink.idDrink}` }
-              >
-                <div
-                  data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
-                  style={ { width: '100%' } }
+            </button>
+          ))}
+      </div>
+      <div className="container">
+        <Row>
+          {!isFiltering
+            ? drinkList
+              .map((drink) => (
+                <Col
+                  xs={ 6 }
+                  sm={ 4 }
+                  md={ 3 }
+                  lg={ 2 }
+                  xl={ 2 }
+                  xxl={ 1 }
+                  key={ drink.strDrink }
                 >
-                  <img
-                    data-testid={ `${drinkList.indexOf(drink)}-card-img` }
-                    src={ drink.strDrinkThumb }
-                    alt={ drink.strDrink }
-                    style={ { width: '40px', height: '40px' } }
-                  />
-                  <h3
-                    data-testid={ `${drinkList.indexOf(drink)}-card-name` }
+                  <Link
+                    to={ `/drinks/${drink.idDrink}` }
                   >
-                    {drink.strDrink}
+                    <div
+                      data-testid={ `${drinkList.indexOf(drink)}-recipe-card` }
+                      className="card"
+                    >
+                      <img
+                        data-testid={ `${drinkList.indexOf(drink)}-card-img` }
+                        src={ drink.strDrinkThumb }
+                        alt={ drink.strDrink }
+                      />
+                      <h3
+                        data-testid={ `${drinkList.indexOf(drink)}-card-name` }
+                      >
+                        {drink.strDrink}
 
-                  </h3>
-                </div>
-              </Link>
-            ))
-          : recipesByCategory
-            .map((d) => (
-              <Link
-                key={ d.strDrink }
-                to={ `/drinks/${d.idDrink}` }
-              >
-                <div
-                  data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
-                  style={ { width: '100%' } }
+                      </h3>
+                    </div>
+                  </Link>
+                </Col>
+              ))
+            : recipesByCategory
+              .map((d) => (
+                <Col
+                  xs={ 6 }
+                  sm={ 4 }
+                  md={ 3 }
+                  lg={ 2 }
+                  xl={ 2 }
+                  xxl={ 1 }
+                  key={ d.strDrink }
                 >
-                  <img
-                    data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
-                    src={ d.strDrinkThumb }
-                    alt={ d.strDrink }
-                    style={ { width: '40px', height: '40px' } }
-                  />
-                  <h3
-                    data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
+                  <Link
+                    to={ `/drinks/${d.idDrink}` }
                   >
-                    {d.strDrink}
+                    <div
+                      data-testid={ `${recipesByCategory.indexOf(d)}-recipe-card` }
+                      className="card"
+                    >
+                      <img
+                        data-testid={ `${recipesByCategory.indexOf(d)}-card-img` }
+                        src={ d.strDrinkThumb }
+                        alt={ d.strDrink }
+                      />
+                      <h3
+                        data-testid={ `${recipesByCategory.indexOf(d)}-card-name` }
+                      >
+                        {d.strDrink}
 
-                  </h3>
-                </div>
-              </Link>
-            ))}
-      </section>
+                      </h3>
+                    </div>
+                  </Link>
+                </Col>
+              ))}
+        </Row>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,67 @@
+.fav-btns-container {
+  display: flex;
+  justify-content: center;
+}
+
+.fav-btns-container button {
+  background-color: #748332;
+  border: none;
+  color: white;
+  height: 30px;
+  width: 70px;
+}
+
+.fav-card {
+  border: 0.517px solid #b1b1b1;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  height: 135px;
+  width: 100%;
+}
+
+a {
+  width: 90%;
+}
+
+.fav-card img {
+  border-radius: 5px;
+  height: 100%;
+}
+
+.fav-card div, .fav-card p {
+  margin: 0;
+}
+
+.info-fav {
+  align-items: center;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.info-fav button {
+  background: transparent;
+  border: none;
+}
+
+.fav-btns {
+  display: flex;
+  justify-content: space-evenly;
+  width: 90%;
+}
+
+.favcard {
+  width: 90%;
+}
+
+.favcard-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}

@@ -87,6 +87,12 @@ function RecipeDetails() {
         <track default kind="captions" />
         <source src={ recipe[type][0].strYoutube } type="video/mp4" />
       </video>
+      // <iframe
+      //   width="420"
+      //   height="315"
+      //   src={ recipe[type][0].strYoutube }
+      //   title="video"
+      // />
     );
     return (
       <>
@@ -122,11 +128,11 @@ function RecipeDetails() {
             </li>
           ))}
         </ul>
-        <p data-testid="instructions">{recipe[type][0].strInstructions}</p>
-        {type === 'meals' ? video : ''}
-        {recommend.length !== 0 && (
-          <Carousel recommend={ recommend } category={ type } />
-        )}
+        <p data-testid="instructions">
+          {recipe[type][0].strInstructions}
+        </p>
+        {type === 'meals' && recipe[type][0].strYoutube !== '' ? video : ''}
+        {recommend.length !== 0 && <Carousel recommend={ recommend } category={ type } />}
         <ShareButton type={ type } id={ id } />
         <FavoriteButton recipe={ recipe } id={ id } type={ type } />
         <button
